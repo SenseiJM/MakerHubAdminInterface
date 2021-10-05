@@ -106,4 +106,8 @@ export class JoueurAdminComponent implements OnInit {
     }
   }
 
+  deleteJoueur(id : number) {
+    this._jService.Delete(id).subscribe();
+  }
+
 }

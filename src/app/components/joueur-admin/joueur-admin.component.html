@@ -3,7 +3,9 @@
 <button (click)="afficherListeJoueurs()">Console.Log(Liste de joueurs)</button>
 
 <ul>
-    <li *ngFor="let joueur of listeJoueurs">{{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}}</li>
+    <li *ngFor="let joueur of listeJoueurs; let index">
+        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button (click)="deleteJoueur(joueur.id)">Supprimer</button>
+    </li>
 </ul>
 
 <button (click)="activerForm()">Ajouter Joueur</button>
