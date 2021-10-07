@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Annonce } from 'src/app/classes/Annonce';
+import { AnnonceService } from 'src/app/services/annonce.service';
 
 @Component({
   selector: 'app-annonce-admin',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnnonceAdminComponent implements OnInit {
 
-  constructor() { }
+  listeAnnonces : Annonce[] = [];
+
+  constructor(private _aService : AnnonceService) { }
 
   ngOnInit(): void {
+
+    this.chargerListeAnnonces();
+
+  }
+
+  chargerListeAnnonces() {
+    this._aService.GetAll().subscribe(
+      (listFromApi : Annonce[]) => {
+        this.listeAnnonces = listFromApi;
+      }
+    );
   }
 
 }

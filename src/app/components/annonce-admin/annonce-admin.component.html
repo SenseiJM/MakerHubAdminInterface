@@ -1,1 +1,5 @@
-<p>annonce-admin works!</p>
+<ul>
+    <li *ngFor="let annonce of listeAnnonces; let index">
+        {{annonce.titre}}<!--<button (click)="deleteAnnonce(annonce.id)">Supprimer</button>-->
+    </li>
+</ul>
