@@ -41,7 +41,7 @@ export class ClassementAdminComponent implements OnInit {
 
   showForm() {
     this.formGroup = this._formBuild.group({
-      denomination : ["", [Validators.required]]
+      denomination : [null, [Validators.required]]
     }, Validators.required);
     this.isShown = true;
   }

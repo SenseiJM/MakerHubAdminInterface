@@ -1,0 +1,9 @@
+.annonce-photo {
+    max-height: 98%;
+    width: auto;
+    margin-right: 50px;
+}
+
+.list-annonce {
+    height: 100px;
+}

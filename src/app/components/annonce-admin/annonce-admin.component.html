@@ -1,5 +1,21 @@
 <ul>
-    <li *ngFor="let annonce of listeAnnonces; let index">
-        {{annonce.titre}}<!--<button (click)="deleteAnnonce(annonce.id)">Supprimer</button>-->
+    <li *ngFor="let annonce of listeAnnonces; let index" class="list-annonce">
+        <img class="annonce-photo" src="http://localhost:51627/api/Annonce/image/{{annonce.id}}">
+        {{annonce.titre}}<button class="list-button">Modifier</button><button (click)="deleteAnnonce(annonce.id)" class="list-button">Supprimer</button>
     </li>
 </ul>
+
+<button (click)="showForm()">Ajouter Annonce</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
+    <label for="titre">Titre : </label>
+    <input type="text" maxlength="255" required name="titre" id="titre" formControlName="titre">
+
+    <label for="photo">Photo : </label>
+    <input type="file" name="photo" id="photo" (change)="imageConversion($event)">
+
+    <label for="description">Description : </label>
+    <textarea formControlName="description" id="description" cols="30" rows="10" maxlength="1500"></textarea>
+
+    <button type="submit" [disabled]="formGroup.invalid">Valider</button>
+</form>
