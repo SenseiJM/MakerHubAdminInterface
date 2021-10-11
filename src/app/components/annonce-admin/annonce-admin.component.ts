@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Annonce } from 'src/app/classes/Annonce';
+import { Annonce } from 'src/app/interfaces/Annonce';
 import { AnnonceService } from 'src/app/services/annonce.service';
 
 @Component({

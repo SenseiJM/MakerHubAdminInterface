@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Classement } from 'src/app/classes/Classement';
+import { Classement } from 'src/app/interfaces/Classement';
 import { ClassementService } from 'src/app/services/classement.service';
 
 @Component({
@@ -44,11 +44,11 @@ export class ClassementAdminComponent implements OnInit {
 
   submit() {
 
-    let nouvClassement = new Classement();
-    nouvClassement.denomination = this.formGroup.value["denomination"];
-
-    this._cService.AddClassement(nouvClassement).subscribe();
-    this.ngOnInit();
+    this._cService.AddClassement(this.formGroup.value).subscribe(
+      () => {
+        this.chargerClassements();
+      }
+    );
   }
 
 }

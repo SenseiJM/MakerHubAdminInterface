@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Joueur } from 'src/app/classes/Joueur';
+import { Joueur } from 'src/app/interfaces/Joueur';
 import { JoueurService } from 'src/app/services/joueur.service';
 import { ClassementService } from 'src/app/services/classement.service';
-import { Classement } from 'src/app/classes/Classement';
+import { Classement } from 'src/app/interfaces/Classement';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { CategorieAge } from 'src/app/classes/CategorieAge';
+import { CategorieAge } from 'src/app/interfaces/CategorieAge';
 import { CategorieAgeService } from 'src/app/services/categorie-age.service';
 import { Router } from '@angular/router';
 
