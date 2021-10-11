@@ -103,6 +103,22 @@ li {
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+nav ul {
+    background-color: #014D8C;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    margin: 10px auto;
+}
+
+nav ul li {
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 0;
+    height: fit-content;
+}   
+
 select:disabled {
     background-color: #003059;
     opacity: 0.25;
