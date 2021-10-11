@@ -2,9 +2,9 @@
 
 <button (click)="afficherListeJoueurs()">Console.Log(Liste de joueurs)</button>
 
-<ul>
+<ul *ngIf="listeJoueurs.length != 0">
     <li *ngFor="let joueur of listeJoueurs; let index">
-        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button (click)="deleteJoueur(joueur.id)">Supprimer</button>
+        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
     </li>
 </ul>
 
@@ -22,29 +22,30 @@
 
 
     <label for="genre">Genre : </label>
-    <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" (change)="changeEvent($event)">
+    <!-- <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" (change)="changeEvent($event)"> -->
+        <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre">
         <option disabled selected value> - </option>
         <option value="Homme">Homme</option>
         <option value="Dame">Dame</option>
     </select>
 
     <label for="classement-hommes">Classement Hommes : </label>
-    <select name="classement-hommes" id="classement-hommes" formControlName="classementHommes">
+    <select name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes">
         <option disabled selected value> - </option>
         <option *ngFor="let classement of listeClassementsHommes" [ngValue]="classement.id">{{classement.denomination}}</option>
     </select>
 
     <label for="classement-dames">Classement Dames : </label>
-    <select name="classement-dames" id="classement-dames" formControlName="classementDames">
+    <select name="classement-dames" id="classement-dames" formControlName="idClassementDames">
         <option selected value> - </option>
         <option *ngFor="let classement of listeClassementsDames" [ngValue]="classement.id">{{classement.denomination}}</option>
     </select>
 
     <label for="categorie-age">Catégorie d'âge : </label>
-    <select name="categorie-age" id="categorie-age" formControlName="categorieAge">
+    <select name="categorie-age" id="categorie-age" formControlName="idCategorieAge">
         <option disabled selected value> - </option>
         <option *ngFor="let cat of listeCategoriesAges" [ngValue]="cat.id">{{cat.nom}}</option>
     </select>
 
-    <button type="submit" [disabled]="!formGroup.valid">Valider</button>
+    <button type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin">Valider</button>
 </form>

@@ -6,6 +6,7 @@ import { Classement } from 'src/app/classes/Classement';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { CategorieAge } from 'src/app/classes/CategorieAge';
 import { CategorieAgeService } from 'src/app/services/categorie-age.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-joueur-admin',
@@ -23,7 +24,7 @@ export class JoueurAdminComponent implements OnInit {
   isShown : boolean = false;
   selectedGenre : string = "";
 
-  constructor(private _jService : JoueurService, private _cService : ClassementService, private _ageService : CategorieAgeService) { }
+  constructor(private _jService : JoueurService, private _cService : ClassementService, private _ageService : CategorieAgeService, private _router : Router) { }
 
   ngOnInit(): void {
 
@@ -65,29 +66,38 @@ export class JoueurAdminComponent implements OnInit {
   activerForm() {
 
     this.formGroup = new FormGroup({
-      nom : new FormControl("", [Validators.required]),
-      prenom : new FormControl("", [Validators.required]),
-      classementHommes : new FormControl("", [Validators.required]),
-      classementDames : new FormControl(""),
-      categorieAge : new FormControl("", [Validators.required]),
-      genre : new FormControl ("", [Validators.required])
+      nom : new FormControl(null, [Validators.required]),
+      prenom : new FormControl(null, [Validators.required]),
+      idClassementHommes : new FormControl(null, [Validators.required]),
+      idClassementDames : new FormControl(null),
+      idCategorieAge : new FormControl(null, [Validators.required]),
+      genre : new FormControl (null, [Validators.required])
     });
+
+    this.formGroup.get('genre')?.valueChanges.subscribe(() => this.changeEvent());
     this.isShown = true;
   }
 
   submit() {
 
-    let nouvJoueur = new Joueur();
+    // let nouvJoueur = new Joueur();
 
-    nouvJoueur.nom = this.formGroup.value["nom"];
-    nouvJoueur.prenom = this.formGroup.value["prenom"];
-    nouvJoueur.idClassementHommes = this.formGroup.value["classementHommes"];
-    nouvJoueur.idClassementDames = this.formGroup.value["classementDames"];
-    nouvJoueur.idCategorieAge = this.formGroup.value["categorieAge"];
-    nouvJoueur.genre = this.formGroup.value["genre"];
+    // nouvJoueur.nom = this.formGroup.value["nom"];
+    // nouvJoueur.prenom = this.formGroup.value["prenom"];
+    // nouvJoueur.idClassementHommes = this.formGroup.value["idClassementHommes"];
+    // nouvJoueur.idClassementDames = this.formGroup.value["idClassementDames"];
+    // nouvJoueur.idCategorieAge = this.formGroup.value["idCategorieAge"];
+    // nouvJoueur.genre = this.formGroup.value["genre"];
 
-    console.log(nouvJoueur);
-    this._jService.AddJoueur(nouvJoueur).subscribe();
+    //console.log(nouvJoueur);
+    this._jService.AddJoueur(this.formGroup.value).subscribe(
+      () => {
+        this.chargerListeJoueurs();
+      }
+    );
+    // this._router.navigate(['joueur-admin']);
+    // this.listeJoueurs = [];
+    this.isShown = false;
   }
 
   //Debug purposes only
@@ -95,13 +105,13 @@ export class JoueurAdminComponent implements OnInit {
     console.log(this.listeJoueurs);
   }
 
-  changeEvent($event: any) {
-    console.log($event.target.value);
-    console.log(typeof $event.target.value);
-    if ($event.target.value === "Dame") {
-      this.formGroup.controls["classementDames"].enable();
+  changeEvent() {
+    console.log(42);
+    
+    if (this.formGroup.get('genre')?.value === "Dame") {
+      this.formGroup.controls["idClassementDames"].enable();
     } else {
-      this.formGroup.controls["classementDames"].disable();
+      this.formGroup.controls["idClassementDames"].disable();
 
     }
   }
