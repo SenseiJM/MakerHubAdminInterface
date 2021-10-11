@@ -1,7 +1,8 @@
 <ul>
     <li *ngFor="let annonce of listeAnnonces; let index" class="list-annonce">
         <img class="annonce-photo" src="http://localhost:51627/api/Annonce/image/{{annonce.id}}">
-        {{annonce.titre}}<button class="list-button">Modifier</button><button (click)="deleteAnnonce(annonce.id)" class="list-button">Supprimer</button>
+        <span>{{annonce.titre}}</span>
+        <div><button class="list-button">Modifier</button><button (click)="deleteAnnonce(annonce.id)" class="list-button">Supprimer</button></div>
     </li>
 </ul>
 
@@ -15,7 +16,7 @@
     <input type="file" name="photo" id="photo" (change)="imageConversion($event)">
 
     <label for="description">Description : </label>
-    <textarea formControlName="description" id="description" cols="30" rows="10" maxlength="1500"></textarea>
+    <textarea formControlName="description" id="description" rows="10" maxlength="1500" required></textarea>
 
     <button type="submit" [disabled]="formGroup.invalid">Valider</button>
 </form>

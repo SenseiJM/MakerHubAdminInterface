@@ -1,9 +1,31 @@
+button {
+    display: inline;
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
 .annonce-photo {
     max-height: 98%;
+    max-width: 350px;
     width: auto;
-    margin-right: 50px;
+    width: 350px;
+    object-fit: cover;
 }
 
 .list-annonce {
     height: 100px;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+}
+
+.list-annonce span {
+    width: 200px;
+}
+
+.list-annonce div {
+    width: 250px;
 }

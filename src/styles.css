@@ -124,6 +124,18 @@ select:disabled {
     opacity: 0.25;
 }
 
+textarea {
+    width: 100%;
+    background-color: #014D8C;
+    margin: 10px 0;
+    border: 1px solid rgba(198, 208, 233, 0.5);
+    border-radius: 5px;
+    color: #C6D0E9;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    resize: none;
+}
+
 ul {
     list-style-type: none;
 }
