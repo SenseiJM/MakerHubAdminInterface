@@ -15,7 +15,16 @@ import { Router } from '@angular/router';
 })
 export class JoueurAdminComponent implements OnInit {
 
-  listeJoueurs : Joueur[] = [];
+  private _listeJoueurs : Joueur[] = [];
+
+  get listeJoueurs() : Joueur[] {
+    return this._listeJoueurs.filter(j => j.nom.toLowerCase().includes(this.stringRecherche.toLowerCase()) || j.prenom.toLowerCase().includes(this.stringRecherche.toLowerCase()));
+  }
+
+  set listeJoueurs(v) {
+    this._listeJoueurs = v;
+  }
+
   listeClassementsHommes : Classement[] = [];
   listeClassementsDames : Classement[] = [];
   listeCategoriesAges : CategorieAge[] = [];
@@ -23,6 +32,11 @@ export class JoueurAdminComponent implements OnInit {
 
   isShown : boolean = false;
   selectedGenre : string = "";
+
+  stringRecherche : string = "";
+  styleAffichageJoueur : string = "flex";
+  listeJoueursRecherche : Joueur[] = [];
+  styleAffichageRecherche : string = "none";  
 
   constructor(private _jService : JoueurService, private _cService : ClassementService, private _ageService : CategorieAgeService, private _router : Router) { }
 
@@ -100,14 +114,7 @@ export class JoueurAdminComponent implements OnInit {
     this.isShown = false;
   }
 
-  //Debug purposes only
-  afficherListeJoueurs() {
-    console.log(this.listeJoueurs);
-  }
-
   changeEvent() {
-    console.log(42);
-    
     if (this.formGroup.get('genre')?.value === "Dame") {
       this.formGroup.controls["idClassementDames"].enable();
     } else {
@@ -122,6 +129,10 @@ export class JoueurAdminComponent implements OnInit {
         this.chargerListeJoueurs();
       }
     );
+  }
+
+  editJoueur(id : number) {
+    //TODO
   }
 
 }

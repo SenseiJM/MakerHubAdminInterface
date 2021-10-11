@@ -1,15 +1,15 @@
-<p>classement-admin works!</p>
+<h2>Classements</h2>
 
 <h4>Classements Hommes</h4>
 
 <ul>
-    <li *ngFor="let classement of listeClassementsHommes">{{classement.denomination}}</li>
+    <li *ngFor="let classement of listeClassementsHommes">{{classement.denomination}} <button class="list-button" (click)="deleteClassement(classement.id)">X</button></li>
 </ul>
 
 <h4>Classements Dames</h4>
 
 <ul>
-    <li *ngFor="let classement of listeClassementsDames">{{classement.denomination}}</li>
+    <li *ngFor="let classement of listeClassementsDames">{{classement.denomination}} <button class="list-button" (click)="deleteClassement(classement.id)">X</button></li>
 </ul>
 
 <button (click)="showForm()">Ajouter Classement</button>

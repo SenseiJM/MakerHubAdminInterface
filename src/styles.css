@@ -33,6 +33,12 @@ button {
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+button:disabled {
+    opacity: 0.25;
+    cursor: default;
+    box-shadow: none;;
+}
+
 footer {
     background-color: #C6D0E9;
     color: #015EAB;
@@ -45,6 +51,19 @@ footer {
     margin-top: 30px;
 }
 
+h2 {
+    text-align: center;
+    margin: 30px auto;
+    background-color: #C6D0E9;
+    color: #015EAB;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 40px;
+}
+
 header {
     text-align: center;
 }
@@ -53,6 +72,23 @@ img {
     width: 75%;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+}
+
+input, select {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #014D8C;
+    height: 50px;
+    margin: 10px 0;
+    border: 1px solid rgba(198, 208, 233, 0.5);
+    border-radius: 5px;
+    padding: 0 10px;
+    color: #C6D0E9;
+}
+
+input::placeholder {
+    color: #C6D0E9;
+    opacity: 0.5;
 }
 
 li {
@@ -67,6 +103,11 @@ li {
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+select:disabled {
+    background-color: #003059;
+    opacity: 0.25;
+}
+
 ul {
     list-style-type: none;
 }
@@ -74,6 +115,7 @@ ul {
 .list-button {
     margin-top: 0;
     margin-bottom: 0;
+    margin-right: 10px;
     display: flex;
     flex-direction: row-reverse;
     box-shadow: none;
@@ -85,4 +127,8 @@ ul {
 
 .list-button:hover {
     box-shadow: 2px 2px 2px 2px rgba(154, 165, 181, 0.5);
+}
+
+.list-button:last-of-type {
+    margin-right: 0;
 }

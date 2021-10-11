@@ -25,4 +25,8 @@ export class ClassementService {
     return this._client.post<Classement[]>(this.url + "api/Classement", nouvClassement);
   }
 
+  Delete(id : number) : Observable<Classement> {
+    return this._client.delete<Classement>(this.url + "api/Classement/" + id);
+  }
+
 }

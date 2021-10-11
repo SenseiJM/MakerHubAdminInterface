@@ -1,10 +1,16 @@
-<p>joueur-admin works!</p>
+<h2>Joueurs</h2>
 
-<button (click)="afficherListeJoueurs()">Console.Log(Liste de joueurs)</button>
+<input type="text" placeholder="Recherche..." [(ngModel)]="stringRecherche" id="search-bar">
 
 <ul *ngIf="listeJoueurs.length != 0">
-    <li *ngFor="let joueur of listeJoueurs; let index">
-        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
+    <li *ngFor="let joueur of listeJoueurs" [ngStyle]="{'display': styleAffichageJoueur}">
+        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="editJoueur(joueur.id)">Modifier</button><button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
+    </li>
+</ul>
+
+<ul [ngStyle]="{'display': styleAffichageRecherche}">
+    <li *ngFor="let joueur of listeJoueursRecherche">
+        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="editJoueur(joueur.id)">Modifier</button><button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
     </li>
 </ul>
 
@@ -23,7 +29,7 @@
 
     <label for="genre">Genre : </label>
     <!-- <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" (change)="changeEvent($event)"> -->
-        <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre">
+    <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre">
         <option disabled selected value> - </option>
         <option value="Homme">Homme</option>
         <option value="Dame">Dame</option>

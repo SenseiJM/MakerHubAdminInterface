@@ -10,8 +10,8 @@ import { ClassementService } from 'src/app/services/classement.service';
 })
 export class ClassementAdminComponent implements OnInit {
 
-  listeClassementsHommes : Classement[] = [];
-  listeClassementsDames : Classement[] = [];
+  listeClassementsHommes! : Classement[];
+  listeClassementsDames! : Classement[];
   formGroup : FormGroup = this._formBuild.group({});
 
   isShown : boolean = false;
@@ -23,6 +23,10 @@ export class ClassementAdminComponent implements OnInit {
   }
 
   chargerClassements() {
+
+    this.listeClassementsDames = [];
+    this.listeClassementsHommes = [];
+
     this._cService.GetAll().subscribe(
       (listFromApi : Classement[]) => {
         for (let classement of listFromApi) {
@@ -45,6 +49,15 @@ export class ClassementAdminComponent implements OnInit {
   submit() {
 
     this._cService.AddClassement(this.formGroup.value).subscribe(
+      () => {
+        this.chargerClassements();
+        this.isShown = false;
+      }
+    );
+  }
+
+  deleteClassement(id: number) {
+    this._cService.Delete(id).subscribe(
       () => {
         this.chargerClassements();
       }

@@ -1,0 +1,10 @@
+ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+li {
+    width: 75px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
