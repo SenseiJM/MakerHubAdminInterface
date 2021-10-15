@@ -1,1 +1,22 @@
-<p>stage-admin works!</p>
+<h2>Stages</h2>
+
+<ul *ngIf="listeStages.length != 0">
+    <li *ngFor="let stage of listeStages">
+        <span class="titre-stage">
+            {{stage.titre}}
+        </span>
+        
+        <span class="dates-stage">
+            {{stage.dateDebut.toLocaleDateString("fr-be")}} - {{stage.dateFin.toLocaleDateString("fr-be")}}
+        </span>
+        
+        <span class="heures-stage">
+            {{stage.heureDebut}} - {{stage.heureFin}}
+        </span>
+
+        <span class="button-stage">
+            <button class="list-button">Modifier</button><button class="list-button">Supprimer</button>
+        </span>
+        
+    </li>
+</ul>

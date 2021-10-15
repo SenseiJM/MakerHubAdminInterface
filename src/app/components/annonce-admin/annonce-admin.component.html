@@ -1,5 +1,7 @@
+<h2>Annonces</h2>
+
 <ul>
-    <li *ngFor="let annonce of listeAnnonces; let index" class="list-annonce">
+    <li *ngFor="let annonce of listeAnnonces" class="list-annonce">
         <img class="annonce-photo" src="http://localhost:51627/api/Annonce/image/{{annonce.id}}">
         <span>{{annonce.titre}}</span>
         <div><button class="list-button">Modifier</button><button (click)="deleteAnnonce(annonce.id)" class="list-button">Supprimer</button></div>
