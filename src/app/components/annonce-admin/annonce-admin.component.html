@@ -12,13 +12,13 @@
 
 <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
     <label for="titre">Titre : </label>
-    <input type="text" maxlength="255" required name="titre" id="titre" formControlName="titre">
+    <input type="text" maxlength="255" name="titre" id="titre" formControlName="titre">
 
     <label for="photo">Photo : </label>
     <input type="file" name="photo" id="photo" (change)="imageConversion($event)">
 
     <label for="description">Description : </label>
-    <textarea formControlName="description" id="description" rows="10" maxlength="1500" required></textarea>
+    <textarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
 
     <button type="submit" [disabled]="formGroup.invalid">Valider</button>
 </form>

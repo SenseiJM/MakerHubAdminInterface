@@ -7,7 +7,7 @@
         </span>
         
         <span class="dates-stage">
-            {{stage.dateDebut.toLocaleDateString("fr-be")}} - {{stage.dateFin.toLocaleDateString("fr-be")}}
+            {{stage.dateDebut.toLocaleDateString("be-fr")}} - {{stage.dateFin.toLocaleDateString("be-fr")}}
         </span>
         
         <span class="heures-stage">
@@ -15,8 +15,108 @@
         </span>
 
         <span class="button-stage">
-            <button class="list-button">Modifier</button><button class="list-button">Supprimer</button>
+            <button class="list-button">Modifier</button><button class="list-button" (click)="deleteStage(stage.id)">Supprimer</button>
         </span>
         
     </li>
 </ul>
+
+<button (click)="showForm()">Ajouter Stage</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
+
+    <label for="titre">Titre : </label>
+    <input type="text" maxlength="100" name="titre" id="titre" formControlName="titre">
+
+
+    <label for="jourDebut">Date de Début : </label>
+    <select name="jourDebut" id="jourDebut" formControlName="jourDebut" [(ngModel)]="selectedJourDebut">
+        <option disabled selected value> - </option>
+        <option *ngFor="let day of days" [ngValue]="day + 1">{{day}}</option>
+    </select>
+
+    <select name="moisDebut" id="moisDebut" formControlName="moisDebut" [(ngModel)]="selectedMoisDebut">
+        <option disabled selected value> - </option>
+        <option *ngFor="let month of months" [ngValue]="month - 1">{{month}}</option>
+    </select>
+
+    <select name="anneeDebut" id="anneeDebut" formControlName="anneeDebut" [(ngModel)]="selectedAnneeDebut">
+        <option disabled selected value> - </option>
+        <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+    </select>
+
+
+    <label for="heureDebut">Heure de début : </label>
+    <select name="heureDebut" id="heureDebut" formControlName="heureDebut" [(ngModel)]="selectedHeureDebut">
+        <option disabled selected value> - </option>
+        <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
+    </select>
+
+    <select name="minuteDebut" id="minuteDebut" formControlName="minuteDebut" [(ngModel)]="selectedMinuteDebut">
+        <option disabled selected value> - </option>
+        <option *ngFor="let minute of minutes" [ngValue]="minute">{{minute}}</option>
+    </select>
+
+
+    <label for="jourFin">Date de Fin : </label>
+    <select name="jourFin" id="jourFin" formControlName="jourFin" [(ngModel)]="selectedJourFin">
+        <option disabled selected value> - </option>
+        <option *ngFor="let day of days" [ngValue]="day + 1">{{day}}</option>
+    </select>
+
+    <select name="moisFin" id="moisFin" formControlName="moisFin" [(ngModel)]="selectedMoisFin">
+        <option disabled selected value> - </option>
+        <option *ngFor="let month of months" [ngValue]="month - 1">{{month}}</option>
+    </select>
+
+    <select name="anneeFin" id="anneeFin" formControlName="anneeFin" [(ngModel)]="selectedAnneeFin">
+        <option disabled selected value> - </option>
+        <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+    </select>
+
+
+    <label for="heureFin">Heure de Fin : </label>
+    <select name="heureFin" id="heureFin" formControlName="heureFin" [(ngModel)]="selectedHeureFin">
+        <option disabled selected value> - </option>
+        <option *ngFor="let hour of hours" [ngValue]="hour">{{hour}}</option>
+    </select>
+
+    <select name="minuteFin" id="minuteFin" formControlName="minuteFin" [(ngModel)]="selectedMinuteFin">
+        <option disabled selected value> - </option>
+        <option *ngFor="let minute of minutes" [ngValue]="minute">{{minute}}</option>
+    </select>
+
+
+    <label for="prixAffilies">Prix Affiliés : </label>
+    <input type="number" name="prixAffilies" id="prixAffilies" formControlName="prixAffilies">
+
+
+    <label for="prixExternes">Prix Externes : </label>
+    <input type="number" name="prixExternes" id="prixExternes" formControlName="prixExternes">
+
+
+    <label for="idClassementMinimum">Classement Hommes Minimum : </label>
+    <select name="idClassementMinimum" id="idClassementMinimum" formControlName="idClassementMinimum">
+        <option disabled selected value> - </option>
+        <option *ngFor="let classement of listeClassements" [ngValue]="classement.id">{{classement.denomination}}</option>
+    </select>
+
+
+    <label for="idClassementMaximum">Classement Hommes Maximum : </label>
+    <select name="idClassementMaximum" id="idClassementMaximum" formControlName="idClassementMaximum">
+        <option disabled selected value> - </option>
+        <option *ngFor="let classement of listeClassements" [ngValue]="classement.id">{{classement.denomination}}</option>
+    </select>
+
+
+    <label for="entraineur">Entraîneur : </label>
+    <input type="text" name="entraineur" id="entraineur" maxlength="50" formControlName="entraineur">
+
+    <label for="nombreMax">Nombre de participants maximum : </label>
+    <input type="number" name="nombreMax" id="nombreMax" formControlName="nombreMax">
+
+    <label for="description">Description : </label>
+    <textarea name="description" id="description" rows="10" maxlength="1500" formControlName="description"></textarea>
+
+    <button type="submit" [disabled]="formGroup.invalid">Valider</button>
+</form>
