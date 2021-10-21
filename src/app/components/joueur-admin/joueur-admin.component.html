@@ -1,57 +1,105 @@
-<h2>Joueurs</h2>
+<button pButton (click)="addJoueur()" icon="pi pi-user-plus" label="Ajouter Joueur" pRipple type="button"></button>
 
-<input type="text" placeholder="Recherche..." [(ngModel)]="stringRecherche" id="search-bar">
+<p-dialog header="Ajouter un Joueur" [(visible)]="displayAddModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
 
-<ul *ngIf="listeJoueurs.length != 0">
-    <li *ngFor="let joueur of listeJoueurs" [ngStyle]="{'display': styleAffichageJoueur}">
-        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="editJoueur(joueur.id)">Modifier</button><button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
-    </li>
-</ul>
+        <span class="p-float-label">
+            <input type="text" maxlength="50" id="nom" formControlName="nom" pInputText>
+            <label for="nom">Nom : </label>
+        </span>
+        <p *ngIf="formGroup.controls['nom'].invalid">Invalide</p>
+    
+        <span class="p-float-label">
+            <input type="text" maxlength="50" id="prenom" formControlName="prenom" pInputText>
+            <label for="prenom">Prénom : </label>
+        </span>
+        <p *ngIf="formGroup.controls['prenom'].invalid">Invalide</p>
+    
+        <span class="p-float-label">
+            <p-dropdown name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" [options]="genres" [autoDisplayFirst]="false"></p-dropdown>
+            <label for="genre">Genre : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes" [options]="listeClassementsHommes" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="classement-hommes">Classement Hommes : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="classement-dames" id="classement-dames" formControlName="idClassementDames" [options]="listeClassementsDames" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="classement-dames">Classement Dames : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="categorie-age" id="categorie-age" formControlName="idCategorieAge" [options]="listeCategoriesAges" optionLabel="nom" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="categorie-age">Catégorie d'âge : </label>
+        </span>
+    
+        <button pButton type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
+    </form>
+</p-dialog>
 
-<ul [ngStyle]="{'display': styleAffichageRecherche}">
-    <li *ngFor="let joueur of listeJoueursRecherche">
-        {{joueur.nom}} {{joueur.prenom}} | Classement : {{joueur.classementHommes}} - {{joueur.classementDames}} <button class="list-button" (click)="editJoueur(joueur.id)">Modifier</button><button class="list-button" (click)="deleteJoueur(joueur.id)">Supprimer</button>
-    </li>
-</ul>
+<span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input pInputText type="text" placeholder="Recherche..." [(ngModel)]="stringRecherche" id="search-bar">
+</span>
 
-<button (click)="activerForm()">Ajouter Joueur</button>
+<p-dialog header="Modifier un Joueur" [(visible)]="displayEditModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
+    <form [formGroup]="formGroup" (ngSubmit)="confirmEditJoueur()" *ngIf="isShown">
 
-<form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
+        <span class="p-float-label">
+            <input type="text" maxlength="50" id="nom" formControlName="nom" pInputText>
+            <label for="nom">Nom : </label>
+        </span>
+        <p *ngIf="formGroup.controls['nom'].invalid">Invalide</p>
+    
+        <span class="p-float-label">
+            <input type="text" maxlength="50" id="prenom" formControlName="prenom" pInputText>
+            <label for="prenom">Prénom : </label>
+        </span>
+        <p *ngIf="formGroup.controls['prenom'].invalid">Invalide</p>
+    
+        <span class="p-float-label">
+            <p-dropdown name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" [options]="genres" [autoDisplayFirst]="false"></p-dropdown>
+            <label for="genre">Genre : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes" [options]="listeClassementsHommes" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="classement-hommes">Classement Hommes : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="classement-dames" id="classement-dames" formControlName="idClassementDames" [options]="listeClassementsDames" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="classement-dames">Classement Dames : </label>
+        </span>
+    
+        <span class="p-float-label">
+            <p-dropdown name="categorie-age" id="categorie-age" formControlName="idCategorieAge" [options]="listeCategoriesAges" optionLabel="nom" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
+            <label for="categorie-age">Catégorie d'âge : </label>
+        </span>
+    
+        <button pButton type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
+    </form>
+</p-dialog>
 
-    <label for="nom">Nom : </label>    
-    <input type="text" maxlength="50" name="nom" id="nom" formControlName="nom">
-    <p *ngIf="formGroup.controls['nom'].invalid">Invalide</p>
-
-    <label for="prenom">Prénom : </label>
-    <input type="text" maxlength="50" name="prenom" id="prenom" formControlName="prenom">
-    <p *ngIf="formGroup.controls['prenom'].invalid">Invalide</p>
-
-
-    <label for="genre">Genre : </label>
-    <!-- <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" (change)="changeEvent($event)"> -->
-    <select name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre">
-        <option disabled selected value> - </option>
-        <option value="Homme">Homme</option>
-        <option value="Dame">Dame</option>
-    </select>
-
-    <label for="classement-hommes">Classement Hommes : </label>
-    <select name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes">
-        <option disabled selected value> - </option>
-        <option *ngFor="let classement of listeClassementsHommes" [ngValue]="classement.id">{{classement.denomination}}</option>
-    </select>
-
-    <label for="classement-dames">Classement Dames : </label>
-    <select name="classement-dames" id="classement-dames" formControlName="idClassementDames">
-        <option selected value> - </option>
-        <option *ngFor="let classement of listeClassementsDames" [ngValue]="classement.id">{{classement.denomination}}</option>
-    </select>
-
-    <label for="categorie-age">Catégorie d'âge : </label>
-    <select name="categorie-age" id="categorie-age" formControlName="idCategorieAge">
-        <option disabled selected value> - </option>
-        <option *ngFor="let cat of listeCategoriesAges" [ngValue]="cat.id">{{cat.nom}}</option>
-    </select>
-
-    <button type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin">Valider</button>
-</form>
+<p-table [value]="listeJoueurs">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Classement Hommes</th>
+            <th>Classement Dames</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-joueur>
+        <tr>
+            <td>{{joueur.nom}}</td>
+            <td>{{joueur.prenom}}</td>
+            <td>{{joueur.classementHommes}}</td>
+            <td>{{joueur.classementDames}}</td>
+            <td><button pButton (click)="showEditJoueur(joueur.id)">Modifier</button></td>
+            <td><button pButton (click)="deleteJoueur(joueur.id)">Supprimer</button></td>
+        </tr>
+    </ng-template>
+</p-table>

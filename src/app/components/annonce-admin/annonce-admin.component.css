@@ -7,12 +7,14 @@ ul {
     flex-wrap: wrap;
     width: 100%;
 }
+
 .annonce-photo {
-    max-height: 98%;
+    max-height: 95%;
     max-width: 350px;
     width: auto;
     width: 350px;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 .list-annonce {

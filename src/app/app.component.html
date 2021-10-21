@@ -3,13 +3,7 @@
 </header>
 
 <nav>
-  <ul>
-    <li [routerLink]="['home']">Accueil</li>
-    <li [routerLink]="['joueur-admin']">Joueurs</li>
-    <li [routerLink]="['annonce-admin']">Annonces</li>
-    <li [routerLink]="['classement-admin']">Classements</li>
-    <li [routerLink]="['stage-admin']">Stages</li>
-  </ul>
+  <p-menubar [model]="navigation"></p-menubar>
 </nav>
 
 <div class="content">

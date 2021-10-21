@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/*You can add global styles to this file, and also import other style files*/
 
 @font-face {
     font-family: 'Quicksand';
@@ -12,151 +12,36 @@
 }
 
 body {
-    background-color : #015EAB;
     width: 900px;
     margin: 0 auto;
-    color: #C6D0E9;
-}
-
-button {
-    background-color: #C6D0E9;
-    padding: 5px 5px;
-    display: block;
-    border: none;
-    border-radius: 5px;
-    margin-top : 25px;
-    margin-bottom: 15px;
-    color: #015EAB;
-    font-weight: bold;
-    font-size: 1.2em;
-    cursor: pointer;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-}
-
-button:disabled {
-    opacity: 0.25;
-    cursor: default;
-    box-shadow: none;;
 }
 
 footer {
-    background-color: #C6D0E9;
-    color: #015EAB;
-    height: 40px;
+    position: fixed;
+    width: 900px;
+    bottom: 0;
+    height: 30px;
+    background-color: #0D89EC;
+    border-radius: 5px;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-h2 {
-    text-align: center;
-    margin: 30px auto;
-    background-color: #C6D0E9;
-    color: #015EAB;
-    box-sizing: content-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    height: 40px;
 }
 
 header {
     text-align: center;
 }
 
-img {
-    width: 75%;
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.25);
+header img {
+    width: 70%;
     border-radius: 10px;
 }
 
-input, select {
-    box-sizing: border-box;
-    width: 100%;
-    background-color: #014D8C;
-    height: 50px;
-    margin: 10px 0;
-    border: 1px solid rgba(198, 208, 233, 0.5);
-    border-radius: 5px;
-    padding: 0 10px;
-    color: #C6D0E9;
+.content {
+    margin-bottom: 50px;
 }
 
-input::placeholder {
-    color: #C6D0E9;
-    opacity: 0.5;
-}
-
-li {
-    height: 50px;
-    background-color: #014D8C;
-    margin: 10px 0;
-    border: 1px solid #003059;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-}
-
-nav ul {
-    background-color: #014D8C;
-    display: flex;
-    justify-content: space-evenly;
-    border-radius: 10px;
-    margin: 10px auto;
-}
-
-nav ul li {
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    padding: 0;
-    height: fit-content;
-}   
-
-select:disabled {
-    background-color: #003059;
-    opacity: 0.25;
-}
-
-textarea {
-    width: 100%;
-    background-color: #014D8C;
-    margin: 10px 0;
-    border: 1px solid rgba(198, 208, 233, 0.5);
-    border-radius: 5px;
-    color: #C6D0E9;
-    box-sizing: border-box;
-    padding: 5px 10px;
-    resize: none;
-}
-
-ul {
-    list-style-type: none;
-}
-
-.list-button {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: row-reverse;
-    box-shadow: none;
-}
-
-.list-button:first-of-type {
-    margin-left: auto;
-}
-
-.list-button:hover {
-    box-shadow: 2px 2px 2px 2px rgba(154, 165, 181, 0.5);
-}
-
-.list-button:last-of-type {
-    margin-right: 0;
+.p-float-label {
+    margin-top: 20px;
 }
