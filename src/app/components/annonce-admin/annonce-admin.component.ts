@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Annonce } from 'src/app/interfaces/Annonce';
 import { AnnonceService } from 'src/app/services/annonce.service';
@@ -11,11 +11,29 @@ import { CustomValidators } from 'src/app/validators/custom.validators';
 })
 export class AnnonceAdminComponent implements OnInit {
 
-  listeAnnonces : Annonce[] = [];
+  @ViewChild("photo") photo! : ElementRef;
+
+  private _listeAnnonces : Annonce[] = [];
 
   formGroup : FormGroup = this._formBuild.group({});
 
   isShown : boolean = false;
+  displayAddModal : boolean = false;
+  displayEditModal : boolean = false;
+
+  stringRecherche : string = "";
+
+  annonceModifie! : Annonce;
+
+  timeStamp! : number;
+
+  get listeAnnonces() : Annonce[] {
+    return this._listeAnnonces.filter(a => a.titre.toLowerCase().includes(this.stringRecherche.toLowerCase()));
+  }
+
+  set listeAnnonces(v) {
+    this._listeAnnonces = v;
+  }
 
   constructor(private _aService : AnnonceService, private _formBuild : FormBuilder) { }
 
@@ -28,7 +46,8 @@ export class AnnonceAdminComponent implements OnInit {
   chargerListeAnnonces() {
     this._aService.GetAll().subscribe(
       (listFromApi : Annonce[]) => {
-        this.listeAnnonces = listFromApi;
+        this._listeAnnonces = listFromApi;
+        this.timeStamp = Date.now();        
       }
     );
   }
@@ -41,7 +60,8 @@ export class AnnonceAdminComponent implements OnInit {
     );
   }
 
-  showForm() {
+  addAnnonce() {
+    this.displayAddModal = true;
     this.formGroup = this._formBuild.group({
       titre : [null, [Validators.required]],
       photo : [null],
@@ -64,7 +84,7 @@ export class AnnonceAdminComponent implements OnInit {
 
   imageConversion($event : any) {
     let fileReader = new FileReader();
-
+    
     this.formGroup.get("fileSize")?.setValue($event.target.files[0].size);
     fileReader.readAsDataURL($event.target.files[0]);
     fileReader.onload = e => {
@@ -72,6 +92,43 @@ export class AnnonceAdminComponent implements OnInit {
       this.formGroup.get("photo")?.setValue((<string>e.target?.result)?.split(",")[1]);
       this.formGroup.get("mimeType")?.setValue((<string>e.target?.result)?.split(",")[0].replace('data:', '').replace(';base64', ''));
     }
+  }
+
+  showEditAnnonce(id : number) {
+    let modifAnnonce : Annonce;
+    this._aService.GetByID(id).subscribe(
+      (annonceFromApi) => {
+        this.annonceModifie = annonceFromApi;
+        console.log(annonceFromApi);
+        
+        this.formGroup.patchValue(this.annonceModifie);
+      }
+    );
+    this.displayEditModal = true;
+    this.formGroup = this._formBuild.group({
+      id : [null],
+      titre : [null, [Validators.required]],
+      photo : [null],
+      fileSize : [null, [CustomValidators.ValidateImageSize((1024 * 1024) * 2)]],
+      mimeType : [null, [CustomValidators.ValidateMimeTypes('image/jpeg', 'image/png', 'image/jpg', 'image/svg')]],
+      description : [null, [Validators.required]]
+    });
+
+    this.isShown = true;
+  }
+
+  confirmEditAnnonce() {
+    this._aService.Update(this.formGroup.value, this.annonceModifie.id).subscribe(
+      () => {
+        this.chargerListeAnnonces();
+      }
+    );
+    this.isShown = false;
+    this.displayEditModal = false;
+  }
+
+  clickPhoto() {
+    this.photo.nativeElement.click();
   }
 
 }

@@ -7,13 +7,11 @@
             <input type="text" maxlength="50" id="nom" formControlName="nom" pInputText>
             <label for="nom">Nom : </label>
         </span>
-        <p *ngIf="formGroup.controls['nom'].invalid">Invalide</p>
     
         <span class="p-float-label">
             <input type="text" maxlength="50" id="prenom" formControlName="prenom" pInputText>
             <label for="prenom">Prénom : </label>
         </span>
-        <p *ngIf="formGroup.controls['prenom'].invalid">Invalide</p>
     
         <span class="p-float-label">
             <p-dropdown name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" [options]="genres" [autoDisplayFirst]="false"></p-dropdown>
@@ -90,6 +88,8 @@
             <th>Prénom</th>
             <th>Classement Hommes</th>
             <th>Classement Dames</th>
+            <th></th>
+            <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-joueur>
@@ -98,8 +98,8 @@
             <td>{{joueur.prenom}}</td>
             <td>{{joueur.classementHommes}}</td>
             <td>{{joueur.classementDames}}</td>
-            <td><button pButton (click)="showEditJoueur(joueur.id)">Modifier</button></td>
-            <td><button pButton (click)="deleteJoueur(joueur.id)">Supprimer</button></td>
+            <td><button pButton (click)="showEditJoueur(joueur.id)" type="button" pRipple icon="pi pi-pencil" label="Modifier"></button></td>
+            <td><button pButton (click)="deleteJoueur(joueur.id)" type="button" pRipple icon="pi pi-trash" label="Supprimer"></button></td>
         </tr>
     </ng-template>
 </p-table>

@@ -14,10 +14,12 @@
 body {
     width: 900px;
     margin: 0 auto;
+    position: relative;
+
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     width: 900px;
     bottom: 0;
     height: 30px;
@@ -38,8 +40,12 @@ header img {
     border-radius: 10px;
 }
 
+textarea {
+    resize : none;
+}
+
 .content {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 .p-float-label {

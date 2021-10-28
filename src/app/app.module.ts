@@ -17,6 +17,11 @@ import {InputTextModule} from 'primeng/inputtext';
 import {TableModule} from 'primeng/table'
 import {CascadeSelectModule} from 'primeng/cascadeselect'
 import { DropdownModule } from 'primeng/dropdown';
+import {FileUploadModule} from 'primeng/fileupload';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { EnvPipe } from './pipes/env.pipe';
+import { ImagePipe } from './pipes/image.pipe';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,9 @@ import { DropdownModule } from 'primeng/dropdown';
     JoueurAdminComponent,
     AnnonceAdminComponent,
     StageAdminComponent,
-    ClassementAdminComponent
+    ClassementAdminComponent,
+    EnvPipe,
+    ImagePipe
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,10 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     TableModule,
     CascadeSelectModule,
-    DropdownModule
+    DropdownModule,
+    FileUploadModule,
+    InputTextareaModule,
+    TagModule
   ],
   providers: [],
   bootstrap: [AppComponent]
