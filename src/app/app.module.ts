@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { JoueurAdminComponent } from './components/joueur-admin/joueur-admin.component';
 import { AnnonceAdminComponent } from './components/annonce-admin/annonce-admin.component';
 import { StageAdminComponent } from './components/stage-admin/stage-admin.component';
-import { ClassementAdminComponent } from './components/classement-admin/classement-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MenubarModule} from 'primeng/menubar';
 import { DialogModule } from 'primeng/dialog';
@@ -29,7 +28,6 @@ import { TagModule } from 'primeng/tag';
     JoueurAdminComponent,
     AnnonceAdminComponent,
     StageAdminComponent,
-    ClassementAdminComponent,
     EnvPipe,
     ImagePipe
   ],

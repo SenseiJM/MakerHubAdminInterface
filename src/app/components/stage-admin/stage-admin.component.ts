@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Classement } from 'src/app/interfaces/Classement';
+import { Classements } from 'src/app/enums/classements';
 import { Stage } from 'src/app/interfaces/Stage';
 import { StageAddDTO } from 'src/app/interfaces/StageAddDTO';
-import { ClassementService } from 'src/app/services/classement.service';
 import { StageService } from 'src/app/services/stage.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { StageService } from 'src/app/services/stage.service';
 export class StageAdminComponent implements OnInit {
 
   listeStages : Stage[] = [];
-  listeClassements : Classement[] = [];
+  listeClassements: string[] = Object.keys(Classements);
 
   days = Array(31).fill('').map((x,i) => i + 1 );
   months = Array(12).fill('').map((x,i) => i + 1 );
@@ -36,13 +35,13 @@ export class StageAdminComponent implements OnInit {
   selectedHeureFin : number = 0;
   selectedMinuteFin : number = 0;
 
-  constructor(private _sService : StageService, private _formBuild : FormBuilder, private _cService : ClassementService) { }
+  constructor(private _sService : StageService, private _formBuild : FormBuilder) { }
 
   ngOnInit(): void {
 
     this.chargerListeStages();
-    this.chargerListeClassements();
-
+    console.log(this.listeClassements);
+    
   }
 
   chargerListeStages() {
@@ -55,14 +54,6 @@ export class StageAdminComponent implements OnInit {
         }
       }
     );
-  }
-
-  chargerListeClassements() {
-    this._cService.GetAll().subscribe(
-      (listFromApi : Classement[]) => {
-        this.listeClassements = listFromApi;
-      }
-    )
   }
 
   showForm() {

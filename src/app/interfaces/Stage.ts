@@ -1,4 +1,3 @@
-import { Classement } from "./Classement";
 import { Joueur } from "./Joueur";
 
 export interface Stage {
@@ -15,7 +14,5 @@ export interface Stage {
     entraineur: string;
     nombreMax?: number;
     description: string;
-    classementMinimum: Classement;
-    classementMaximum: Classement;
     joueurStages: Joueur[];
 }

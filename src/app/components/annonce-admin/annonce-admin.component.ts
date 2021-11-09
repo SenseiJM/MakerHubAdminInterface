@@ -88,7 +88,7 @@ export class AnnonceAdminComponent implements OnInit {
     this.formGroup.get("fileSize")?.setValue($event.target.files[0].size);
     fileReader.readAsDataURL($event.target.files[0]);
     fileReader.onload = e => {
-      console.log(e.target?.result);
+      // console.log(e.target?.result);
       this.formGroup.get("photo")?.setValue((<string>e.target?.result)?.split(",")[1]);
       this.formGroup.get("mimeType")?.setValue((<string>e.target?.result)?.split(",")[0].replace('data:', '').replace(';base64', ''));
     }

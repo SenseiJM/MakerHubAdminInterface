@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
-import { Club } from '../interfaces/club';
-import { Member } from '../interfaces/member';
+import { Club } from '../interfaces/Club';
+import { Member } from '../interfaces/Member';
 import { Team } from '../interfaces/Team';
 
 @Injectable({
