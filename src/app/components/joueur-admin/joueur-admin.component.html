@@ -1,105 +1,16 @@
-<button pButton (click)="addJoueur()" icon="pi pi-user-plus" label="Ajouter Joueur" pRipple type="button"></button>
-
-<p-dialog header="Ajouter un Joueur" [(visible)]="displayAddModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
-    <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
-
-        <span class="p-float-label">
-            <input type="text" maxlength="50" id="nom" formControlName="nom" pInputText>
-            <label for="nom">Nom : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <input type="text" maxlength="50" id="prenom" formControlName="prenom" pInputText>
-            <label for="prenom">Prénom : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" [options]="genres" [autoDisplayFirst]="false"></p-dropdown>
-            <label for="genre">Genre : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes" [options]="listeClassementsHommes" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="classement-hommes">Classement Hommes : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="classement-dames" id="classement-dames" formControlName="idClassementDames" [options]="listeClassementsDames" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="classement-dames">Classement Dames : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="categorie-age" id="categorie-age" formControlName="idCategorieAge" [options]="listeCategoriesAges" optionLabel="nom" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="categorie-age">Catégorie d'âge : </label>
-        </span>
-    
-        <button pButton type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
-    </form>
-</p-dialog>
-
-<span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input pInputText type="text" placeholder="Recherche..." [(ngModel)]="stringRecherche" id="search-bar">
-</span>
-
-<p-dialog header="Modifier un Joueur" [(visible)]="displayEditModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
-    <form [formGroup]="formGroup" (ngSubmit)="confirmEditJoueur()" *ngIf="isShown">
-
-        <span class="p-float-label">
-            <input type="text" maxlength="50" id="nom" formControlName="nom" pInputText>
-            <label for="nom">Nom : </label>
-        </span>
-        <p *ngIf="formGroup.controls['nom'].invalid">Invalide</p>
-    
-        <span class="p-float-label">
-            <input type="text" maxlength="50" id="prenom" formControlName="prenom" pInputText>
-            <label for="prenom">Prénom : </label>
-        </span>
-        <p *ngIf="formGroup.controls['prenom'].invalid">Invalide</p>
-    
-        <span class="p-float-label">
-            <p-dropdown name="genre" id="genre" formControlName="genre" [(ngModel)]="selectedGenre" [options]="genres" [autoDisplayFirst]="false"></p-dropdown>
-            <label for="genre">Genre : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="classement-hommes" id="classement-hommes" formControlName="idClassementHommes" [options]="listeClassementsHommes" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="classement-hommes">Classement Hommes : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="classement-dames" id="classement-dames" formControlName="idClassementDames" [options]="listeClassementsDames" optionLabel="denomination" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="classement-dames">Classement Dames : </label>
-        </span>
-    
-        <span class="p-float-label">
-            <p-dropdown name="categorie-age" id="categorie-age" formControlName="idCategorieAge" [options]="listeCategoriesAges" optionLabel="nom" [autoDisplayFirst]="false" optionValue="id"></p-dropdown>
-            <label for="categorie-age">Catégorie d'âge : </label>
-        </span>
-    
-        <button pButton type="submit" [disabled]="!formGroup.valid" routerLink="../joueur-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
-    </form>
-</p-dialog>
-
 <p-table [value]="listeJoueurs">
     <ng-template pTemplate="header">
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
-            <th>Classement Hommes</th>
-            <th>Classement Dames</th>
-            <th></th>
-            <th></th>
+            <th>Classement</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-joueur>
         <tr>
-            <td>{{joueur.nom}}</td>
-            <td>{{joueur.prenom}}</td>
-            <td>{{joueur.classementHommes}}</td>
-            <td>{{joueur.classementDames}}</td>
-            <td><button pButton (click)="showEditJoueur(joueur.id)" type="button" pRipple icon="pi pi-pencil" label="Modifier"></button></td>
-            <td><button pButton (click)="deleteJoueur(joueur.id)" type="button" pRipple icon="pi pi-trash" label="Supprimer"></button></td>
+            <td>{{joueur.lastName}}</td>
+            <td>{{joueur.firstName}}</td>
+            <td>{{joueur.ranking}}</td>
         </tr>
     </ng-template>
 </p-table>
