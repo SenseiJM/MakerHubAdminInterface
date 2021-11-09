@@ -19,26 +19,33 @@ export class AppComponent {
     this.navigation = [
       {
         label: "Joueurs",
-        icon: 'pi pi-fw pi-users',
+        icon: "fas fa-users",
         routerLink: ['joueur-admin']
       },
       {
         label: "Annonces",
-        icon: PrimeIcons.BELL,
+        icon: "fas fa-bell",
         routerLink: ['annonce-admin']
 
       },
       {
-        label: "Classements",
-        icon: PrimeIcons.BARS,
-        routerLink: ['classement-admin']
+        label: "Stages",
+        icon: "fas fa-table-tennis",
+        routerLink: ['stage-admin']
 
       },
       {
-        label: "Stages",
-        icon: PrimeIcons.CALENDAR,
-        routerLink: ['stage-admin']
-
+        label: "Soupers",
+        icon: "fas fa-wine-glass-alt"
+        // routerLink: ['']
+      },
+      {
+        label: "Compétitions",
+        icon: "fas fa-trophy"
+      },
+      {
+        label: "Équipes",
+        icon: "fas fa-sitemap"
       }
     ];
 
