@@ -1,0 +1,73 @@
+<button pButton (click)="addSouper()" icon="pi pi-plus-circle" label="Ajouter Souper" pRipple type="button"></button>
+
+<p-dialog header="Ajouter un Souper" [(visible)]="displayAddModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
+
+    <span class="p-float-label">
+        <input type="text" maxlength="50" id="titre" formControlName="titre" pInputText>
+        <label for="titre">Titre : </label>
+    </span>
+
+    <label for="typeSouper">Type de Souper : </label>
+    <div>
+        <p-dropdown [options]="listeTypes" formcontrolName="typeSouper" id="typeSouper"></p-dropdown>
+    </div>
+
+    <label for="date">Date : </label>
+    <div id="date">
+        <p-dropdown [options]="days" formControlName="jour" id="jour"></p-dropdown>
+        <p-dropdown [options]="months" formcontrolName="mois" id="mois"></p-dropdown>
+        <p-dropdown [options]="years" formControlName="annee" id="annee"></p-dropdown>
+    </div>
+
+    <div>
+        <label for="prixAffilies">Prix Affiliés : </label>
+        <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" [step]="0.5" [min]="0" formControlName="prixAffilies" id="prixAffilies"></p-inputNumber>
+    </div>
+    <div>
+        <label for="prixExternes">Prix Externes : </label>
+        <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" [step]="0.5" [min]="0" formControlName="prixExternes" id="prixExternes"></p-inputNumber>
+    </div>
+    <div>
+        <label for="nombreMax">Nombre Max : </label>
+        <p-inputNumber [showButtons]="true" [min]="0" formControlName="nombreMax" id="nombreMax"></p-inputNumber>
+    </div>
+
+    <label for="urlPhoto">Photo : </label>
+    <button (click)="clickPhoto()">Ajouter Image</button>
+    <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
+    <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>
+    <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
+    <p *ngIf="!formGroup.get('photo')?.value">Choisir une image...</p>
+    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('photo')?.value"></p-tag>
+
+    <label style="display: block;" for="description">Description : </label>
+    <textarea pInputTextarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
+
+    <button pButton type="submit" [disabled]="formGroup.invalid" routerLink="../souper-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
+
+    </form>
+</p-dialog>
+
+<p-table [value]="listeSoupers">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Photo</th>
+            <th>Titre</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-souper>
+        <tr>
+            <td></td>
+            <td>{{souper.titre}}</td>
+            <td>{{souper.date.split("T", 1).join("").split("-").reverse().join("/")}}</td>
+            <td>{{souper.typeSouper == "surPlace" ? "Sur Place" : "A emporter"}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -21,6 +21,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import { EnvPipe } from './pipes/env.pipe';
 import { ImagePipe } from './pipes/image.pipe';
 import { TagModule } from 'primeng/tag';
+import { SouperAdminComponent } from './components/souper-admin/souper-admin.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { TagModule } from 'primeng/tag';
     AnnonceAdminComponent,
     StageAdminComponent,
     EnvPipe,
-    ImagePipe
+    ImagePipe,
+    SouperAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,9 @@ import { TagModule } from 'primeng/tag';
     DropdownModule,
     FileUploadModule,
     InputTextareaModule,
-    TagModule
+    TagModule,
+    DropdownModule,
+    InputNumberModule
   ],
   providers: [],
   bootstrap: [AppComponent]

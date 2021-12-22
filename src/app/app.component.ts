@@ -36,8 +36,8 @@ export class AppComponent {
       },
       {
         label: "Soupers",
-        icon: "fas fa-wine-glass-alt"
-        // routerLink: ['']
+        icon: "fas fa-wine-glass-alt",
+        routerLink: ['souper-admin']
       },
       {
         label: "Compétitions",

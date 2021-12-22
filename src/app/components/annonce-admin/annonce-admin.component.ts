@@ -97,7 +97,7 @@ export class AnnonceAdminComponent implements OnInit {
   showEditAnnonce(id : number) {
     let modifAnnonce : Annonce;
     this._aService.GetByID(id).subscribe(
-      (annonceFromApi) => {
+      (annonceFromApi : Annonce) => {
         this.annonceModifie = annonceFromApi;
         console.log(annonceFromApi);
         
