@@ -9,7 +9,7 @@
         </span>
 
         <label for="photo">Photo : </label>
-        <button (click)="clickPhoto()">Ajouter Image</button>
+        <button type="button" (click)="clickPhoto()">Ajouter Image</button>
         <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
         <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>
         <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
@@ -65,7 +65,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-annonce>
         <tr>
-            <td><img class="annonce-photo" src="{{annonce.id | image}}{{timeStamp?'?ts='+timeStamp:''}}"></td>
+            <td><img class="annonce-photo" src="{{annonce.id | image : 'Annonce'}}{{timeStamp?'?ts='+timeStamp:''}}"></td>
             <td>{{annonce.titre}}</td>
             <td><button pButton (click)="showEditAnnonce(annonce.id)" type="button" pRipple icon="pi pi-pencil" label="Modifier"></button></td>
             <td><button pButton (click)="deleteAnnonce(annonce.id)" type="button" pRipple icon="pi pi-trash" label="Supprimer"></button></td>

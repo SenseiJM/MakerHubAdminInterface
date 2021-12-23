@@ -6,8 +6,8 @@ export interface StageAddDTO {
     heureFin: string;
     prixAffilies: number;
     prixExternes: number;
-    idClassementMinimum: number;
-    idClassementMaximum: number;
+    classementMinimum: number;
+    classementMaximum: number;
     entraineur: string;
     nombreMax?: number;
     description: string;

@@ -8,7 +8,7 @@ export interface Souper {
     prixAffilies: number;
     prixExternes: number;
     description: string;
-    urlPhoto: string;
+    photo: string;
     nombreMax: number;
     titre: string;
 }

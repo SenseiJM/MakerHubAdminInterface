@@ -35,6 +35,8 @@ export class StageAdminComponent implements OnInit {
   selectedHeureFin : number = 0;
   selectedMinuteFin : number = 0;
 
+  displayAddModal : boolean = false;
+
   constructor(private _sService : StageService, private _formBuild : FormBuilder) { }
 
   ngOnInit(): void {
@@ -56,25 +58,26 @@ export class StageAdminComponent implements OnInit {
     );
   }
 
-  showForm() {
+  addStage() {
+    this.displayAddModal = true;
     this.formGroup = this._formBuild.group({
       titre : [null, [Validators.required]],
-      jourDebut : [null, [Validators.required]],
-      moisDebut : [null, [Validators.required]],
-      anneeDebut : [null, [Validators.required]],
-      jourFin : [null, [Validators.required]],
-      moisFin : [null, [Validators.required]],
-      anneeFin : [null, [Validators.required]],
-      heureDebut : [null, [Validators.required]],
-      minuteDebut : [null, [Validators.required]],
-      heureFin : [null, [Validators.required]],
-      minuteFin : [null, [Validators.required]],
-      prixAffilies : [null, [Validators.required]],
-      prixExternes : [null, [Validators.required]],
-      idClassementMinimum : [null, [Validators.required]],
-      idClassementMaximum : [null, [Validators.required]],
+      jourDebut : [1, [Validators.required]],
+      moisDebut : [1, [Validators.required]],
+      anneeDebut : [this.years[0], [Validators.required]],
+      jourFin : [1, [Validators.required]],
+      moisFin : [1, [Validators.required]],
+      anneeFin : [this.years[0], [Validators.required]],
+      heureDebut : [this.hours[0], [Validators.required]],
+      minuteDebut : [this.minutes[0], [Validators.required]],
+      heureFin : [this.hours[0], [Validators.required]],
+      minuteFin : [this.minutes[0], [Validators.required]],
+      prixAffilies : [0, [Validators.required]],
+      prixExternes : [0, [Validators.required]],
+      classementMinimum : [Classements.NC, [Validators.required]],
+      classementMaximum : [Classements.B6, [Validators.required]],
       entraineur : [null, [Validators.required]],
-      nombreMax : [null],
+      nombreMax : [0],
       description : [null, [Validators.required]]
     });
     this.isShown = true;
@@ -96,8 +99,8 @@ export class StageAdminComponent implements OnInit {
       heureFin: this.formGroup.value["heureFin"] + "h" + this.formGroup.value["minuteFin"],
       prixAffilies: this.formGroup.value["prixAffilies"],
       prixExternes: this.formGroup.value["prixExternes"],
-      idClassementMinimum: this.formGroup.value["idClassementMinimum"],
-      idClassementMaximum: this.formGroup.value["idClassementMaximum"],
+      classementMinimum: this.formGroup.value["classementMinimum"],
+      classementMaximum: this.formGroup.value["classementMaximum"],
       entraineur: this.formGroup.value["entraineur"],
       nombreMax: this.formGroup.value["nombreMax"],
       description: this.formGroup.value["description"]
@@ -106,9 +109,9 @@ export class StageAdminComponent implements OnInit {
     this._sService.AddStage(nouvStage).subscribe(
       () => {
         this.chargerListeStages();
-        this.isShown = false;
       }
-    );
+      );
+    this.isShown = false;
 
   }
 
@@ -118,6 +121,10 @@ export class StageAdminComponent implements OnInit {
         this.chargerListeStages();
       }
     )
+  }
+
+  detailsAnnonce() {
+    //TODO (New page OR Modal ??????) -> Khun
   }
 
 }

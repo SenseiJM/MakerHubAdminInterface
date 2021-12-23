@@ -33,13 +33,13 @@
         <p-inputNumber [showButtons]="true" [min]="0" formControlName="nombreMax" id="nombreMax"></p-inputNumber>
     </div>
 
-    <label for="urlPhoto">Photo : </label>
+    <label for="photo">Photo : </label>
     <button type="button" (click)="clickPhoto()">Ajouter Image</button>
     <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
     <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>
     <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
-    <p *ngIf="!formGroup.get('urlPhoto')?.value">Choisir une image...</p>
-    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('urlPhoto')?.value"></p-tag>
+    <p *ngIf="!formGroup.get('photo')?.value">Choisir une image...</p>
+    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('photo')?.value"></p-tag>
 
     <label style="display: block;" for="description">Description : </label>
     <textarea pInputTextarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
@@ -62,9 +62,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-souper>
         <tr>
-            <td><img src="{{souper.id | image}}"></td>
+            <td><img src="{{souper.id | image : 'Souper'}}"></td>
             <td>{{souper.titre}}</td>
-            <td>{{souper.date | date : 'dd/MM/yyyy' : 'fr'}}</td>
+            <td>{{souper.date | date : 'dd/MM/yyyy'}}</td>
             <td>{{souper.typeSouper == "surPlace" ? "Sur Place" : "A emporter"}}</td>
             <td></td>
             <td></td>

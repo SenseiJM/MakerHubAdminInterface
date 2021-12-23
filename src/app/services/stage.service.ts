@@ -24,7 +24,7 @@ export class StageService {
   }
 
   GetAll(): Observable<Stage[]> {
-    return this._client.get<Stage[]>(this.url + "api/Stage");
+    return this._client.get<Stage[]>(this.url + "api/Stage/All");
   }
 
   GetByID(id: number): Observable<Stage> {

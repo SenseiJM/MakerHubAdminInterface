@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 export class ImagePipe implements PipeTransform {
 
   transform(value: string, ...args: unknown[]): string {
-    return environment.ApiUrl + "api/Annonce/image/" + value;
+    return environment.ApiUrl + "api/" + args[0] + "/image/" + value;
   }
 
 }

@@ -18,19 +18,15 @@ export class AnnonceService {
   }
 
   Update(modifiedAnnonce : Annonce, id: number) : Observable<Annonce> {
-    return this._client.put<Annonce>(this.url + "api/Annonce/" + id, modifiedAnnonce);
+    return this._client.put<Annonce>(this.url + "api/Annonce/ByID/" + id, modifiedAnnonce);
   }
 
   GetAll() : Observable<Annonce[]> {
-    return this._client.get<Annonce[]>(this.url + "api/Annonce");
+    return this._client.get<Annonce[]>(this.url + "api/Annonce/All");
   }
 
   GetByID(id : number) : Observable<Annonce> {
-    return this._client.get<Annonce>(this.url + "api/Annonce/byID/" + id);
-  }
-
-  GetByTitle(title: string) : Observable<Annonce[]> {
-    return this._client.get<Annonce[]>(this.url + "api/Annonce/byTitle/" + title);
+    return this._client.get<Annonce>(this.url + "api/Annonce/ByID/" + id);
   }
 
   Delete(id : number) {

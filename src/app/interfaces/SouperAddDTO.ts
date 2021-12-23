@@ -6,7 +6,7 @@ export interface SouperAddDTO {
     prixAffilies: number;
     prixExternes: number;
     description: string;
-    urlPhoto: string;
+    photo: string;
     nombreMax: number;
     titre: string;
     mimeType: string;

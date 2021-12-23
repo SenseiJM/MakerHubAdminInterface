@@ -95,9 +95,7 @@ export class SouperAdminComponent implements OnInit {
     }
 
     this._sService.AddSouper(nouvSouper).subscribe(
-      () => {
-        console.log("Je rentre dans le AddSouper");
-        
+      () => {  
         this.chargerListeSoupers();
         this.isShown = false;
       }
@@ -105,7 +103,6 @@ export class SouperAdminComponent implements OnInit {
   }
 
   imageConversion($event: any) {
-    console.log("Je rentre dans image conversion");
     
     let fileReader = new FileReader();
 
@@ -114,7 +111,7 @@ export class SouperAdminComponent implements OnInit {
     fileReader.onload = e => {
       console.log(e.target?.result);
       
-      this.formGroup.get("urlPhoto")?.setValue((<string>e.target?.result)?.split(",")[1]);
+      this.formGroup.get("photo")?.setValue((<string>e.target?.result)?.split(",")[1]);
       this.formGroup.get("mimeType")?.setValue((<string>e.target?.result)?.split(",")[0].replace('data:', '').replace(';base64', ''));
     } 
   }
