@@ -1,12 +1,13 @@
-import { TypesSoupers } from "../enums/typeSoupers";
+import { TypeSoupers } from "../enums/typeSoupers";
 
 export interface SouperAddDTO {
     date: Date;
-    typeSouper: TypesSoupers;
+    typeSouper: TypeSoupers;
     prixAffilies: number;
     prixExternes: number;
     description: string;
     urlPhoto: string;
     nombreMax: number;
     titre: string;
+    mimeType: string;
 }

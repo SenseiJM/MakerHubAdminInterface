@@ -10,13 +10,13 @@
 
     <label for="typeSouper">Type de Souper : </label>
     <div>
-        <p-dropdown [options]="listeTypes" formcontrolName="typeSouper" id="typeSouper"></p-dropdown>
+        <p-dropdown [options]="listeTypes" optionLabel="name" optionValue="value" formControlName="typeSouper" id="typeSouper"></p-dropdown>
     </div>
 
     <label for="date">Date : </label>
     <div id="date">
         <p-dropdown [options]="days" formControlName="jour" id="jour"></p-dropdown>
-        <p-dropdown [options]="months" formcontrolName="mois" id="mois"></p-dropdown>
+        <p-dropdown [options]="months" formControlName="mois" id="mois"></p-dropdown>
         <p-dropdown [options]="years" formControlName="annee" id="annee"></p-dropdown>
     </div>
 
@@ -34,17 +34,17 @@
     </div>
 
     <label for="urlPhoto">Photo : </label>
-    <button (click)="clickPhoto()">Ajouter Image</button>
+    <button type="button" (click)="clickPhoto()">Ajouter Image</button>
     <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
     <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>
     <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
-    <p *ngIf="!formGroup.get('photo')?.value">Choisir une image...</p>
-    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('photo')?.value"></p-tag>
+    <p *ngIf="!formGroup.get('urlPhoto')?.value">Choisir une image...</p>
+    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('urlPhoto')?.value"></p-tag>
 
     <label style="display: block;" for="description">Description : </label>
     <textarea pInputTextarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
 
-    <button pButton type="submit" [disabled]="formGroup.invalid" routerLink="../souper-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
+    <button pButton type="submit"  routerLink="../souper-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
 
     </form>
 </p-dialog>
@@ -62,9 +62,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-souper>
         <tr>
-            <td></td>
+            <td><img src="{{souper.id | image}}"></td>
             <td>{{souper.titre}}</td>
-            <td>{{souper.date.split("T", 1).join("").split("-").reverse().join("/")}}</td>
+            <td>{{souper.date | date : 'dd/MM/yyyy' : 'fr'}}</td>
             <td>{{souper.typeSouper == "surPlace" ? "Sur Place" : "A emporter"}}</td>
             <td></td>
             <td></td>

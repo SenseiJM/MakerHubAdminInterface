@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TypesSoupers } from 'src/app/enums/typeSoupers';
+import { TypeSoupers } from 'src/app/enums/typeSoupers';
 import { Souper } from 'src/app/interfaces/Souper';
 import { SouperAddDTO } from 'src/app/interfaces/SouperAddDTO';
 import { SouperService } from 'src/app/services/souper.service';
@@ -17,7 +17,13 @@ export class SouperAdminComponent implements OnInit {
 
   _listeSoupers: Souper[] = [];
 
-  listeTypes: string[] = [TypesSoupers[0], TypesSoupers[1]];
+  listeTypes: any[] = [{
+    name: "A Emporter",
+    value: TypeSoupers.aEmporter
+  }, {
+    name: "Sur Place",
+    value: TypeSoupers.surPlace
+  }];
 
   formGroup: FormGroup = this._formbuild.group({});
   isShown: boolean = false;
@@ -50,7 +56,10 @@ export class SouperAdminComponent implements OnInit {
   chargerListeSoupers() {
     this._sService.GetAll().subscribe(
       (listFromApi: Souper[]) => {
-        this.listeSoupers = listFromApi;
+        this.listeSoupers = listFromApi.map(s => {
+          s.realdate = new Date(s.date);
+          return s;
+        });
       }
     );
   }
@@ -58,17 +67,17 @@ export class SouperAdminComponent implements OnInit {
   addSouper() {
     this.displayAddModal = true;
     this.formGroup = this._formbuild.group({
-      jour: [null, [Validators.required]],
-      mois: [null, [Validators.required]],
-      annee: [null, [Validators.required]],
-      typeSouper: [null, [Validators.required]],
-      prixAffilies: [null, [Validators.required]],
-      prixExternes: [null, [Validators.required]],
+      jour: [1, [Validators.required]],
+      mois: [1, [Validators.required]],
+      annee: [this.years[0], [Validators.required]],
+      typeSouper: [TypeSoupers.aEmporter, [Validators.required]],
+      prixAffilies: [0, [Validators.required]],
+      prixExternes: [0, [Validators.required]],
       description: [null, [Validators.required]],
       urlPhoto: [null],
       fileSize: [null, [CustomValidators.ValidateImageSize((1024 * 1024) * 2)]],
       mimeType: [null, [CustomValidators.ValidateMimeTypes('image/jpeg', 'image/png', 'image/svg')]],
-      nombreMax: [null, [Validators.required]],
+      nombreMax: [0, [Validators.required]],
       titre: [null, [Validators.required]]
     });
     this.isShown = true;
@@ -77,22 +86,18 @@ export class SouperAdminComponent implements OnInit {
   }
 
   submit() {
-
+    console.log(this.formGroup)
     let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"], this.formGroup.value["jour"]);
 
     let nouvSouper : SouperAddDTO = {
       date: date,
-      description: this.formGroup.value["description"],
-      nombreMax: this.formGroup.value["nombreMax"],
-      prixAffilies: this.formGroup.value["prixAffilies"],
-      prixExternes: this.formGroup.value["prixExternes"],
-      titre: this.formGroup.value["titre"],
-      typeSouper: this.formGroup.value["typeSouper"],
-      urlPhoto: this.formGroup.value["urlPhoto"]
+      ...this.formGroup.value,
     }
 
     this._sService.AddSouper(nouvSouper).subscribe(
       () => {
+        console.log("Je rentre dans le AddSouper");
+        
         this.chargerListeSoupers();
         this.isShown = false;
       }
@@ -100,11 +105,15 @@ export class SouperAdminComponent implements OnInit {
   }
 
   imageConversion($event: any) {
+    console.log("Je rentre dans image conversion");
+    
     let fileReader = new FileReader();
 
     this.formGroup.get("fileSize")?.setValue($event.target.files[0].size);
-    fileReader.readAsDataURL<($event.target.files[0]);
+    fileReader.readAsDataURL($event.target.files[0]);
     fileReader.onload = e => {
+      console.log(e.target?.result);
+      
       this.formGroup.get("urlPhoto")?.setValue((<string>e.target?.result)?.split(",")[1]);
       this.formGroup.get("mimeType")?.setValue((<string>e.target?.result)?.split(",")[0].replace('data:', '').replace(';base64', ''));
     } 

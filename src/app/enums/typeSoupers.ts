@@ -1,4 +1,4 @@
-export enum TypesSoupers {
+export enum TypeSoupers {
     aEmporter,
     surPlace
 }

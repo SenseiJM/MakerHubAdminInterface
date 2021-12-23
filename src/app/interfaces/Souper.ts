@@ -1,9 +1,10 @@
-import { TypesSoupers } from "../enums/typeSoupers";
+import { TypeSoupers } from "../enums/typeSoupers";
 
 export interface Souper {
     id: number;
-    date: Date;
-    typeSouper: TypesSoupers;
+    date: string;
+    realdate: Date;
+    typeSouper: TypeSoupers;
     prixAffilies: number;
     prixExternes: number;
     description: string;
