@@ -30,7 +30,7 @@ export class AnnonceService {
   }
 
   Delete(id : number) {
-    return this._client.delete<Annonce>(this.url + "api/Annonce/" + id);
+    return this._client.delete<Annonce>(this.url + "api/Annonce?id=" + id);
   }
 
 }

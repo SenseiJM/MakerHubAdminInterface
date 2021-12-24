@@ -22,4 +22,8 @@ export class SouperService {
     return this._client.get<Souper[]>(this.url + "api/Souper/All");
   }
 
+  GetByID(id: number) : Observable<Souper> {
+    return this._client.get<Souper>(this.url + "api/Souper/ByID/" + id);
+  }
+
 }

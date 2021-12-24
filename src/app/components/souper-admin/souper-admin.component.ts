@@ -28,6 +28,7 @@ export class SouperAdminComponent implements OnInit {
   formGroup: FormGroup = this._formbuild.group({});
   isShown: boolean = false;
   displayAddModal: boolean = false;
+  displayDetailsModal: boolean = false;
 
   stringRecherche: string = "";
 
@@ -47,10 +48,15 @@ export class SouperAdminComponent implements OnInit {
   selectedMois : number = 0;
   selectedAnnee : number = 0;
 
+  selectedSouper: Souper = new Souper();
+
   constructor(private _sService: SouperService, private _formbuild: FormBuilder) { }
 
   ngOnInit(): void {
     this.chargerListeSoupers();
+    this.selectedSouper = this.listeSoupers[0];
+    console.log(this.selectedSouper);
+    
   }
 
   chargerListeSoupers() {
@@ -74,7 +80,7 @@ export class SouperAdminComponent implements OnInit {
       prixAffilies: [0, [Validators.required]],
       prixExternes: [0, [Validators.required]],
       description: [null, [Validators.required]],
-      urlPhoto: [null],
+      photo: [null],
       fileSize: [null, [CustomValidators.ValidateImageSize((1024 * 1024) * 2)]],
       mimeType: [null, [CustomValidators.ValidateMimeTypes('image/jpeg', 'image/png', 'image/svg')]],
       nombreMax: [0, [Validators.required]],
@@ -100,6 +106,15 @@ export class SouperAdminComponent implements OnInit {
         this.isShown = false;
       }
     );
+  }
+
+  showDetailsSouper(id: number) {
+    this._sService.GetByID(id).subscribe(
+      (souperFromApi: Souper) => {
+        this.selectedSouper = souperFromApi;
+      }
+    );
+    this.displayDetailsModal = true;
   }
 
   imageConversion($event: any) {
