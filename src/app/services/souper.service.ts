@@ -26,4 +26,12 @@ export class SouperService {
     return this._client.get<Souper>(this.url + "api/Souper/ByID/" + id);
   }
 
+  Update(id: number, nouvSouper: SouperAddDTO) : Observable<Souper> {
+    return this._client.put<Souper>(this.url + "api/Souper", nouvSouper);
+  }
+
+  Delete(id: number) : Observable<Souper> {
+    return this._client.delete<Souper>(this.url + "api/Souper?id=" +  id);
+  }
+
 }

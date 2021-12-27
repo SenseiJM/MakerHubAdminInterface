@@ -29,6 +29,7 @@ export class SouperAdminComponent implements OnInit {
   isShown: boolean = false;
   displayAddModal: boolean = false;
   displayDetailsModal: boolean = false;
+  displayEditModal: boolean = false;
 
   stringRecherche: string = "";
 
@@ -48,15 +49,12 @@ export class SouperAdminComponent implements OnInit {
   selectedMois : number = 0;
   selectedAnnee : number = 0;
 
-  selectedSouper: Souper = new Souper();
+  selectedSouper!: Souper;
 
   constructor(private _sService: SouperService, private _formbuild: FormBuilder) { }
 
   ngOnInit(): void {
-    this.chargerListeSoupers();
-    this.selectedSouper = this.listeSoupers[0];
-    console.log(this.selectedSouper);
-    
+    this.chargerListeSoupers();    
   }
 
   chargerListeSoupers() {
@@ -66,6 +64,8 @@ export class SouperAdminComponent implements OnInit {
           s.realdate = new Date(s.date);
           return s;
         });
+        this.selectedSouper = this.listeSoupers[0];
+        
       }
     );
   }
@@ -87,13 +87,44 @@ export class SouperAdminComponent implements OnInit {
       titre: [null, [Validators.required]]
     });
     this.isShown = true;
-    console.log(this.listeTypes);
-    
+  }
+
+  modifySouper() {
+    this.displayEditModal = true;
+    this.selectedJour = +this.selectedSouper.date.split("-")[2].split("T")[0]; //Le  + fait l'équivalent d'un parseInt()
+    this.selectedMois = +this.selectedSouper.date.split("-")[1];
+    this.selectedAnnee = +this.selectedSouper.date.split("-")[0];
+    this.formGroup = this._formbuild.group({
+      jour: [this.selectedJour, [Validators.required]],
+      mois: [this.selectedMois, [Validators.required]],
+      annee: [this.selectedAnnee, [Validators.required]],
+      typeSouper: [this.selectedSouper.typeSouper, [Validators.required]],
+      prixAffilies: [this.selectedSouper.prixAffilies, [Validators.required]],
+      prixExternes: [this.selectedSouper.prixExternes, [Validators.required]],
+      description: [this.selectedSouper.description, [Validators.required]],
+      photo: [this.selectedSouper.photo],
+      fileSize: [null, [CustomValidators.ValidateImageSize((1024 * 1024) * 2)]],
+      mimeType: [null, [CustomValidators.ValidateMimeTypes('image/jpeg', 'image/png', 'image/svg')]],
+      nombreMax: [this.selectedSouper.nombreMax, [Validators.required]],
+      titre: [this.selectedSouper.titre, [Validators.required]]
+    });
+    this.isShown = true;
+    console.log(this.formGroup);
+  }
+
+  deleteSouper() {
+    this._sService.Delete(this.selectedSouper.id).subscribe(
+      () => {
+        this.chargerListeSoupers();
+        this.isShown = false;
+        this.displayDetailsModal = false;
+      }
+    )
   }
 
   submit() {
     console.log(this.formGroup)
-    let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"], this.formGroup.value["jour"]);
+    let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"] - 1, this.formGroup.value["jour"] - 1);
 
     let nouvSouper : SouperAddDTO = {
       date: date,
@@ -104,6 +135,25 @@ export class SouperAdminComponent implements OnInit {
       () => {  
         this.chargerListeSoupers();
         this.isShown = false;
+        this.displayAddModal = false;
+      }
+    );
+  }
+
+  submitEdit() {
+    console.log(this.formGroup)
+    let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"] - 1, this.formGroup.value["jour"] - 1);
+
+    let nouvSouper : SouperAddDTO = {
+      date: date,
+      ...this.formGroup.value,
+    }
+
+    this._sService.Update(this.selectedSouper.id, nouvSouper).subscribe(
+      () => {  
+        this.chargerListeSoupers();
+        this.isShown = false;
+        this.displayEditModal = false;
       }
     );
   }
@@ -111,7 +161,7 @@ export class SouperAdminComponent implements OnInit {
   showDetailsSouper(id: number) {
     this._sService.GetByID(id).subscribe(
       (souperFromApi: Souper) => {
-        this.selectedSouper = souperFromApi;
+        this.selectedSouper = souperFromApi;  
       }
     );
     this.displayDetailsModal = true;

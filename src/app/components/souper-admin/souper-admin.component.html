@@ -49,8 +49,72 @@
     </form>
 </p-dialog>
 
+<p-dialog header="Modifier un Souper" [(visible)]="displayEditModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
+
+    <span class="p-float-label">
+        <input type="text" maxlength="50" id="titre" formControlName="titre" pInputText>
+        <label for="titre">Titre : </label>
+    </span>
+
+    <label for="typeSouper">Type de Souper : </label>
+    <div>
+        <p-dropdown [options]="listeTypes" optionLabel="name" optionValue="value" formControlName="typeSouper" id="typeSouper"></p-dropdown>
+    </div>
+
+    <label for="date">Date : </label>
+    <div id="date">
+        <p-dropdown [options]="days" formControlName="jour" id="jour" [(ngModel)]="selectedJour"></p-dropdown>
+        <p-dropdown [options]="months" formControlName="mois" id="mois" [(ngModel)]="selectedMois"></p-dropdown>
+        <p-dropdown [options]="years" formControlName="annee" id="annee" [(ngModel)]="selectedAnnee"></p-dropdown>
+    </div>
+
+    <div>
+        <label for="prixAffilies">Prix Affiliés : </label>
+        <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" [step]="0.5" [min]="0" formControlName="prixAffilies" id="prixAffilies"></p-inputNumber>
+    </div>
+    <div>
+        <label for="prixExternes">Prix Externes : </label>
+        <p-inputNumber [showButtons]="true" mode="currency" currency="EUR" [step]="0.5" [min]="0" formControlName="prixExternes" id="prixExternes"></p-inputNumber>
+    </div>
+    <div>
+        <label for="nombreMax">Nombre Max : </label>
+        <p-inputNumber [showButtons]="true" [min]="0" formControlName="nombreMax" id="nombreMax"></p-inputNumber>
+    </div>
+
+    <label for="photo">Photo : </label>
+    <img class="souper-photo" src="{{selectedSouper.id.toString() | image : 'Souper'}}">
+    <button type="button" (click)="clickPhoto()">Ajouter Image</button>
+    <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
+    <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>
+    <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
+    <p *ngIf="!formGroup.get('photo')?.value">Choisir une image...</p>
+    <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('photo')?.value"></p-tag>
+
+    <label style="display: block;" for="description">Description : </label>
+    <textarea pInputTextarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
+
+    <button pButton type="submit"  routerLink="../souper-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
+
+    </form>
+</p-dialog>
+
 <p-dialog header="{{selectedSouper.titre}}" [(visible)]="displayDetailsModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
-    
+    <div id="details-buttons">
+        <button pButton type="button" (click)="modifySouper()" icon="pi pi-pencil" label="Modifier" pRipple></button>
+        <button pButton type="button" (click)="deleteSouper()" icon="pi pi-trash" label="Supprimer" pRipple></button>
+    </div>
+    <div>
+        <img class="souper-photo" src="{{selectedSouper.id.toString() | image : 'Souper'}}">
+        <h3>{{selectedSouper.titre}}</h3>
+        <p>{{selectedSouper.date | date : 'dd/MM/yyyy'}}</p>
+        <p>Souper {{selectedSouper.typeSouper.toString() == "surPlace" ? "sur Place" : "à emporter"}}</p>
+        <h4>Nombre Maximum : {{selectedSouper.nombreMax}} personnes</h4>
+        <h4>Prix Affiliés : {{selectedSouper.prixAffilies}} €</h4>
+        <h4>Prix Externes : {{selectedSouper.prixExternes}} €</h4>
+        <h4>Description : </h4>
+        <p>{{selectedSouper.description}}</p>
+    </div>
 </p-dialog>
 
 <p-table [value]="listeSoupers">
