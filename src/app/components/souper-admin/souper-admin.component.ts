@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeSoupers } from 'src/app/enums/typeSoupers';
+import { JoueurSouperIndexDTO } from 'src/app/interfaces/JoueurSouper';
 import { Souper } from 'src/app/interfaces/Souper';
 import { SouperAddDTO } from 'src/app/interfaces/SouperAddDTO';
+import { JoueurSouperService } from 'src/app/services/joueur-souper.service';
 import { SouperService } from 'src/app/services/souper.service';
 import { CustomValidators } from 'src/app/validators/custom.validators';
 
@@ -51,7 +53,9 @@ export class SouperAdminComponent implements OnInit {
 
   selectedSouper!: Souper;
 
-  constructor(private _sService: SouperService, private _formbuild: FormBuilder) { }
+  commandes: JoueurSouperIndexDTO[] = [];
+
+  constructor(private _sService: SouperService, private _jsService: JoueurSouperService, private _formbuild: FormBuilder) { }
 
   ngOnInit(): void {
     this.chargerListeSoupers();    
@@ -65,7 +69,6 @@ export class SouperAdminComponent implements OnInit {
           return s;
         });
         this.selectedSouper = this.listeSoupers[0];
-        
       }
     );
   }
@@ -161,7 +164,12 @@ export class SouperAdminComponent implements OnInit {
   showDetailsSouper(id: number) {
     this._sService.GetByID(id).subscribe(
       (souperFromApi: Souper) => {
-        this.selectedSouper = souperFromApi;  
+        this.selectedSouper = souperFromApi;
+        this._jsService.GetBySouperID(this.selectedSouper.id).subscribe(
+          (listFromApi: JoueurSouperIndexDTO[]) => {
+            this.commandes = listFromApi;
+          }
+        )  
       }
     );
     this.displayDetailsModal = true;

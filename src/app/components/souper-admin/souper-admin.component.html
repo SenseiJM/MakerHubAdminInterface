@@ -115,6 +115,15 @@
         <h4>Description : </h4>
         <p>{{selectedSouper.description}}</p>
     </div>
+
+    <p-orderList [value]="commandes">
+        <ng-template let-commande pTemplate="item">
+            <div>
+                {{commande.nom}} {{commande.prenom}} ({{commande.email}}) : {{commande.nbCommande}} réservations
+            </div>
+        </ng-template>
+    </p-orderList>    
+
 </p-dialog>
 
 <p-table [value]="listeSoupers">

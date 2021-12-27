@@ -23,6 +23,7 @@ import { ImagePipe } from './pipes/image.pipe';
 import { TagModule } from 'primeng/tag';
 import { SouperAdminComponent } from './components/souper-admin/souper-admin.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import {OrderListModule} from 'primeng/orderlist';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputTextareaModule,
     TagModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    OrderListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
