@@ -83,7 +83,7 @@
     </div>
 
     <label for="photo">Photo : </label>
-    <img class="souper-photo" src="{{selectedSouper.id.toString() | image : 'Souper'}}">
+    <!-- <img class="souper-photo" src="{{selectedSouper.id.toString() | image : 'Souper'}}"> -->
     <button type="button" (click)="clickPhoto()">Ajouter Image</button>
     <input #photo type="file" name="photo" id="photo" (change)="imageConversion($event)" hidden>
     <p *ngIf="formGroup.get('mimeType')?.errors?.MimeTypeError">Fichier non valide...</p>

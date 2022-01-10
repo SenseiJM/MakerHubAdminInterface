@@ -17,11 +17,11 @@ export class AppComponent {
     this.primengConfig.ripple = true;
 
     this.navigation = [
-      {
-        label: "Joueurs",
-        icon: "fas fa-users",
-        routerLink: ['joueur-admin']
-      },
+      // {
+      //   label: "Joueurs",
+      //   icon: "fas fa-users",
+      //   routerLink: ['joueur-admin']
+      // },
       {
         label: "Annonces",
         icon: "fas fa-bell",
@@ -39,14 +39,14 @@ export class AppComponent {
         icon: "fas fa-wine-glass-alt",
         routerLink: ['souper-admin']
       },
-      {
-        label: "Compétitions",
-        icon: "fas fa-trophy"
-      },
-      {
-        label: "Équipes",
-        icon: "fas fa-sitemap"
-      }
+      // {
+      //   label: "Compétitions",
+      //   icon: "fas fa-trophy"
+      // },
+      // {
+      //   label: "Équipes",
+      //   icon: "fas fa-sitemap"
+      // }
     ];
 
   }

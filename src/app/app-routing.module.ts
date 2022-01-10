@@ -6,7 +6,7 @@ import { SouperAdminComponent } from './components/souper-admin/souper-admin.com
 import { StageAdminComponent } from './components/stage-admin/stage-admin.component';
 
 const routes: Routes = [
-  {path: '', component: JoueurAdminComponent},
+  {path: '', component: AnnonceAdminComponent},
   {path: 'joueur-admin', component: JoueurAdminComponent},
   {path: 'annonce-admin', component: AnnonceAdminComponent},
   {path: 'stage-admin', component: StageAdminComponent},
