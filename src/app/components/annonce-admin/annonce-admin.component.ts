@@ -27,6 +27,12 @@ export class AnnonceAdminComponent implements OnInit {
 
   timeStamp! : number;
 
+  displayDetailsModal: boolean = false;
+
+  selectedAnnonce!: Annonce;
+
+  blob?: string | null;
+
   get listeAnnonces() : Annonce[] {
     return this._listeAnnonces.filter(a => a.titre.toLowerCase().includes(this.stringRecherche.toLowerCase()));
   }
@@ -47,7 +53,8 @@ export class AnnonceAdminComponent implements OnInit {
     this._aService.GetAll().subscribe(
       (listFromApi : Annonce[]) => {
         this._listeAnnonces = listFromApi;
-        this.timeStamp = Date.now();        
+        this.timeStamp = Date.now();
+        this.selectedAnnonce = this.listeAnnonces[0];
       }
     );
   }
@@ -62,6 +69,7 @@ export class AnnonceAdminComponent implements OnInit {
 
   addAnnonce() {
     this.displayAddModal = true;
+    this.blob = null;
     this.formGroup = this._formBuild.group({
       titre : [null, [Validators.required]],
       photo : [null],
@@ -78,6 +86,7 @@ export class AnnonceAdminComponent implements OnInit {
       () => {
         this.chargerListeAnnonces();
         this.isShown = false;
+        this.displayAddModal = false;
       }
     );
   }
@@ -86,8 +95,10 @@ export class AnnonceAdminComponent implements OnInit {
     let fileReader = new FileReader();
     
     this.formGroup.get("fileSize")?.setValue($event.target.files[0].size);
+    if ($event.target.files[0].size > ((1024 * 1024) * 2)) return;
     fileReader.readAsDataURL($event.target.files[0]);
     fileReader.onload = e => {
+      this.blob = <string>e.target?.result;
       this.formGroup.get("photo")?.setValue((<string>e.target?.result)?.split(",")[1]);
       this.formGroup.get("mimeType")?.setValue((<string>e.target?.result)?.split(",")[0].replace('data:', '').replace(';base64', ''));
     }
@@ -128,6 +139,15 @@ export class AnnonceAdminComponent implements OnInit {
 
   clickPhoto() {
     this.photo.nativeElement.click();
+  }
+
+  showDetailsAnnonce(id: number) {
+    this._aService.GetByID(id).subscribe(
+      (annonceFromApi: Annonce) => {
+        this.selectedAnnonce = annonceFromApi;
+      }
+    )
+    this.displayDetailsModal = true;
   }
 
 }

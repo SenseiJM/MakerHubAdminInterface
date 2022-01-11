@@ -33,7 +33,7 @@ import {OrderListModule} from 'primeng/orderlist';
     StageAdminComponent,
     EnvPipe,
     ImagePipe,
-    SouperAdminComponent
+    SouperAdminComponent,
   ],
   imports: [
     BrowserModule,

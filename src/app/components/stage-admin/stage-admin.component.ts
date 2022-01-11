@@ -69,9 +69,9 @@ export class StageAdminComponent implements OnInit {
       moisFin : [1, [Validators.required]],
       anneeFin : [this.years[0], [Validators.required]],
       heureDebut : [this.hours[0], [Validators.required]],
-      minuteDebut : [this.minutes[0], [Validators.required]],
+      minutesDebut : [this.minutes[0], [Validators.required]],
       heureFin : [this.hours[0], [Validators.required]],
-      minuteFin : [this.minutes[0], [Validators.required]],
+      minutesFin : [this.minutes[0], [Validators.required]],
       prixAffilies : [0, [Validators.required]],
       prixExternes : [0, [Validators.required]],
       classementMinimum : [Classements.NC, [Validators.required]],
@@ -95,8 +95,8 @@ export class StageAdminComponent implements OnInit {
       titre: this.formGroup.value["titre"],
       dateDebut: dateDeb,
       dateFin: dateFin,
-      heureDebut: this.formGroup.value["heureDebut"] + "h" + this.formGroup.value["minuteDebut"],
-      heureFin: this.formGroup.value["heureFin"] + "h" + this.formGroup.value["minuteFin"],
+      heureDebut: this.formGroup.value["heureDebut"] + "h" + this.formGroup.value["minutesDebut"],
+      heureFin: this.formGroup.value["heureFin"] + "h" + this.formGroup.value["minutesFin"],
       prixAffilies: this.formGroup.value["prixAffilies"],
       prixExternes: this.formGroup.value["prixExternes"],
       classementMinimum: this.formGroup.value["classementMinimum"],
@@ -112,6 +112,7 @@ export class StageAdminComponent implements OnInit {
       }
       );
     this.isShown = false;
+    this.displayAddModal = false;
 
   }
 

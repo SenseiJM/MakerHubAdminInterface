@@ -18,7 +18,7 @@ export class AnnonceService {
   }
 
   Update(modifiedAnnonce : Annonce, id: number) : Observable<Annonce> {
-    return this._client.put<Annonce>(this.url + "api/Annonce/ByID/" + id, modifiedAnnonce);
+    return this._client.put<Annonce>(this.url + "api/Annonce/" + id, modifiedAnnonce);
   }
 
   GetAll() : Observable<Annonce[]> {

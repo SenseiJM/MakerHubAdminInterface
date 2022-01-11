@@ -138,7 +138,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-souper>
         <tr>
-            <td><img class="souper-photo" src="{{souper.id | image : 'Souper'}}"></td>
+            <td><img class="souper-photo" src="{{souper.id | image : 'Souper'}}" *ngIf="souper.photo"><p *ngIf="!souper.photo">Aucune photo</p></td>
             <td>{{souper.titre}}</td>
             <td>{{souper.date | date : 'dd/MM/yyyy'}}</td>
             <td>{{souper.typeSouper == "surPlace" ? "Sur Place" : "A emporter"}}</td>

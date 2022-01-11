@@ -15,6 +15,7 @@
         <p *ngIf="formGroup.get('fileSize')?.errors?.SizeError">Le fichier doit être inférieur à 2 Mo</p>
         <p *ngIf="!formGroup.get('photo')?.value">Choisir une image...</p>
         <p-tag value="Image enregistrée" severity="success" icon="pi pi-check" *ngIf="formGroup.get('photo')?.value"></p-tag>
+        <img [src]="blob" *ngIf="blob">
 
         <label style="display: block;" for="description">Description : </label>
         <textarea pInputTextarea formControlName="description" id="description" rows="10" maxlength="1500"></textarea>
@@ -54,12 +55,20 @@
     </form>
 </p-dialog>
 
+<p-dialog *ngIf="selectedAnnonce" header="{{selectedAnnonce.titre}}" [(visible)]="displayDetailsModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '50vw'}">
+    <div id="details-buttons">
+        <button pButton type="button" (click)="showEditAnnonce(selectedAnnonce.id)" icon="pi pi-pencil" label="Modifier" pRipple></button>
+        <button pButton type="button" (click)="deleteAnnonce(selectedAnnonce.id)" icon="pi pi-trash" label="Supprimer" pRipple></button>
+        <img class="annonce-photo" src="{{selectedAnnonce.id.toString() | image : 'Annonce'}}" alt="">
+        <div [innerText]="selectedAnnonce.description"></div>
+    </div>
+</p-dialog>
+
 <p-table [value]="listeAnnonces">
     <ng-template pTemplate="header">
         <tr>
             <th>Image</th>
             <th>Titre</th>
-            <th></th>
             <th></th>
         </tr>
     </ng-template>
@@ -67,8 +76,7 @@
         <tr>
             <td><img class="annonce-photo" src="{{annonce.id | image : 'Annonce'}}{{timeStamp?'?ts='+timeStamp:''}}"></td>
             <td>{{annonce.titre}}</td>
-            <td><button pButton (click)="showEditAnnonce(annonce.id)" type="button" pRipple icon="pi pi-pencil" label="Modifier"></button></td>
-            <td><button pButton (click)="deleteAnnonce(annonce.id)" type="button" pRipple icon="pi pi-trash" label="Supprimer"></button></td>
+            <td><button pButton (click)="showDetailsAnnonce(annonce.id)" type="button" pRipple icon="pi pi-info" label="Détails"></button></td>
         </tr>
     </ng-template>
 </p-table>

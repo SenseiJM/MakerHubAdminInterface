@@ -4,7 +4,7 @@
     <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="isShown">
 
         <span class="p-float-label">
-            <input type="text" maxlength="100" id="titre" formControlName="titre" pinputText>
+            <input type="text" maxlength="100" id="titre" formControlName="titre" pInputText>
             <label for="titre">Titre : </label>
         </span>
 
@@ -45,7 +45,7 @@
         </div>
 
         <span class="p-float-label">
-            <input type="text" maxlength="50" id="entraineur" formControlName="entraineur" pinputText>
+            <input type="text" maxlength="50" id="entraineur" formControlName="entraineur" pInputText>
             <label for="titre">Entraineur : </label>
         </span>
 
@@ -59,12 +59,12 @@
 
         <label for="classementMinimum">Classement Minimum : </label>
         <div>
-            <p-dropdown [options]="listeClassements" optionLabel="keys" optionValue="keys.value" formControlName="classementMinimum" id="classementMinimum"></p-dropdown>
+            <p-dropdown [options]="listeClassements" formControlName="classementMinimum" id="classementMinimum"></p-dropdown>
         </div>
 
         <label for="classementMaximum">Classement Maximum : </label>
         <div>
-            <p-dropdown [options]="listeClassements" optionLabel="keys" optionValue="keys.value" formControlName="classementMaximum" id="classementMaximum"></p-dropdown>
+            <p-dropdown [options]="listeClassements" formControlName="classementMaximum" id="classementMaximum"></p-dropdown>
         </div>
 
         <button pButton type="submit" routerLink="../stage-admin" pRipple label="Valider" icon="pi pi-check-circle"></button>
