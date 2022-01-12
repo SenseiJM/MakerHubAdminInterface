@@ -74,7 +74,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-annonce>
         <tr>
-            <td><img class="annonce-photo" src="{{annonce.id | image : 'Annonce'}}{{timeStamp?'?ts='+timeStamp:''}}"></td>
+            <td><img class="annonce-photo" src="{{annonce.id | image : 'Annonce'}}{{timeStamp?'?ts='+timeStamp:''}}" *ngIf="annonce.photo"><p *ngIf="!annonce.photo">Aucune photo</p></td>
             <td>{{annonce.titre}}</td>
             <td><button pButton (click)="showDetailsAnnonce(annonce.id)" type="button" pRipple icon="pi pi-info" label="Détails"></button></td>
         </tr>

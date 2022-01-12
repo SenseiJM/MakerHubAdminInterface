@@ -27,7 +27,7 @@ export class SouperService {
   }
 
   Update(id: number, nouvSouper: SouperAddDTO) : Observable<Souper> {
-    return this._client.put<Souper>(this.url + "api/Souper", nouvSouper);
+    return this._client.put<Souper>(this.url + "api/Souper/" + id, nouvSouper);
   }
 
   Delete(id: number) : Observable<Souper> {

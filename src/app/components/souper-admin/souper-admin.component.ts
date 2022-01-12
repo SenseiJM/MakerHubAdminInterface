@@ -127,7 +127,7 @@ export class SouperAdminComponent implements OnInit {
 
   submit() {
     console.log(this.formGroup)
-    let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"] - 1, this.formGroup.value["jour"] - 1);
+    let date: string = this.formGroup.value["annee"] + "-" + this.addZero(this.formGroup.value["mois"]) + "-" + this.addZero(this.formGroup.value["jour"]);
 
     let nouvSouper : SouperAddDTO = {
       date: date,
@@ -145,7 +145,7 @@ export class SouperAdminComponent implements OnInit {
 
   submitEdit() {
     console.log(this.formGroup)
-    let date = new Date(this.formGroup.value["annee"], this.formGroup.value["mois"] - 1, this.formGroup.value["jour"] - 1);
+    let date: string = this.formGroup.value["annee"] + "-" + this.addZero(this.formGroup.value["mois"]) + "-" + this.addZero(this.formGroup.value["jour"]);
 
     let nouvSouper : SouperAddDTO = {
       date: date,
@@ -191,6 +191,10 @@ export class SouperAdminComponent implements OnInit {
 
   clickPhoto() {
     this.photo.nativeElement.click();
+  }
+
+  private addZero(nombre: number) {
+    return ("0" + nombre).slice(-2);
   }
 
 }
