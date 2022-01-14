@@ -28,12 +28,12 @@ export class AppComponent {
         routerLink: ['annonce-admin']
 
       },
-      {
-        label: "Stages",
-        icon: "fas fa-table-tennis",
-        routerLink: ['stage-admin']
+      // {
+      //   label: "Stages",
+      //   icon: "fas fa-table-tennis",
+      //   routerLink: ['stage-admin']
 
-      },
+      // },
       {
         label: "Soupers",
         icon: "fas fa-wine-glass-alt",
